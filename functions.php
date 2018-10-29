@@ -247,11 +247,14 @@ function image_write($im, $text, $size, $x, $y) {
   putenv('GDFONTPATH=' . realpath('.'));
 	$black = ImageColorAllocate ($im, 0, 0, 0);
 	$white = ImageColorAllocate ($im, 255, 255, 255);
-  ImageTTFText ($im, $size, 0, $x+0, $y+9, $white, $font_file, $text);
-  ImageTTFText ($im, $size, 0, $x+0, $y+11, $white, $font_file, $text);
-  ImageTTFText ($im, $size, 0, $x+2, $y+9, $white, $font_file, $text);
-  ImageTTFText ($im, $size, 0, $x+2, $y+11, $white, $font_file, $text);
-  ImageTTFText ($im, $size, 0, $x+1, $y+10, $black, $font_file, $text);
+
+  // Create white outline
+  for( $dx=0; $dx<5; $dx++ )
+      for( $dy=0; $dy<5; $dy++ )
+        ImageTTFText ($im, $size, 0, $x+$dx, $y+$dy, $white, $font_file, $text);
+
+  // Draw text
+  ImageTTFText ($im, $size, 0, $x+2, $y+2, $black, $font_file, $text);
 	return $im;
 } // image_write()
 

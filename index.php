@@ -124,13 +124,7 @@ if ($action === 't') {
 	$comments = $_GET['comments'];
 	if ($comments > 0) {
 		$comments .= $comments == 1 ? ' Kommentar' : ' Kommentare';
-		$tc_white = imagecolorallocate($new_image, 255, 255, 255);
-		$tc_black = imagecolorallocate($new_image, 0, 0, 0);
-		imagestring($new_image, 3, 6, 6, $comments, $tc_black);
-		imagestring($new_image, 3, 6, 8, $comments, $tc_black);
-		imagestring($new_image, 3, 8, 6, $comments, $tc_black);
-		imagestring($new_image, 3, 8, 8, $comments, $tc_black);
-		imagestring($new_image, 3, 7, 7, $comments, $tc_white);
+		$new_image = image_write($new_image, $comments, 10, 7, 7);
 	}
 
 	// Show image
@@ -204,7 +198,7 @@ if ($action === 't') {
 
 	$copyright_file = dirname($pictures_path.$path).'/'.$copyright_file;
 	if (file_exists($copyright_file)) $text = join('',file($copyright_file));
-	$new_image = image_write($new_image, $text, 10, 5, 5);
+	$new_image = image_write($new_image, $text, 10, 5, 13);
 
 	Header('Content-type: image/png');
 
@@ -219,13 +213,13 @@ if ($action === 't') {
     if (file_exists($copyright_file)) $text = join('',file($copyright_file));
     if(preg_match("/\.(png)$/i", $pictures_path.$path)) {
         $im = @ImageCreateFromPNG($pictures_path.$path) or die ("Kann keinen neuen GD-Bild-Stream erzeugen");
-        $im = image_write($im, $text, 10, 5, 5);
+        $im = image_write($im, $text, 10, 5, 13);
         Header('Content-type: image/png');
         ImagePNG($im);
     }
     elseif(preg_match("/\.(jpg)$/i", $pictures_path.$path)) {
         $im = @ImageCreateFromJPEG($pictures_path.$path) or die ("Kann keinen neuen GD-Bild-Stream erzeugen");
-        $im = image_write($im, $text, 10, 5, 5);
+        $im = image_write($im, $text, 10, 5, 13);
         Header('Content-type: image/jpeg');
         ImageJPEG($im);
     }
@@ -415,7 +409,7 @@ if ($action === 't') {
   header("Content-Type: application/json");
   echo json_encode([
       "files" => get_dir($pictures_path, $path, 'f'),
-      "dirs" => get_dir($pictures_path, $path, 'f')
+      "dirs" => get_dir($pictures_path, $path, 'd')
     ]);
 
 } else {
