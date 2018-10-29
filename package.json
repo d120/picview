@@ -1,0 +1,16 @@
+{
+  "name": "picview",
+  "version": "1.1.0",
+  "description": "A webservice for viewing image folders",
+  "main": "index.php",
+  "repository": "git@github.com:d120/picview.git",
+  "author": "Arne Pottharst <arne@arnep.de>",
+  "license": "GPL-2.0-or-later",
+  "dependencies": {
+    "bootstrap": "3.3.1",
+    "font-awesome": "4.7.0",
+    "jquery": "^3.3.1",
+    "justifiedGallery": "^3.7.0",
+    "typeface-libre-franklin": "^0.0.54"
+  }
+}

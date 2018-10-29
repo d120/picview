@@ -1,5 +1,6 @@
 thumbs/
 comments/
+node_modules/
 *~
 
 config.php

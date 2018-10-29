@@ -7,59 +7,78 @@
 		<link rel="stylesheet" type="text/css" href="/picview/node_modules/bootstrap/dist/css/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="/picview/node_modules/font-awesome/css/font-awesome.min.css" />
 		<link rel="stylesheet" type="text/css" href="/picview/node_modules/typeface-libre-franklin/index.css" />
-		<link rel="stylesheet" type="text/css" href="/picview/node_modules/justifiedGallery/dist/css/justifiedGallery.min.css"/>
 		<link rel="stylesheet" type="text/css" href="/picview/style/d120/css/custom.css" />
 		<link rel="stylesheet" type="text/css" href="/picview/style/d120/css/tudesign.css" />
 		<style>
 			#main {
-				min-height: calc(100vh - 326px);
+				min-height: 100vh;
+				background-color: #333;
+				/*padding-top: 54px;*/
+			}
+
+			.carousel-inner {
+				display: flex;
+			  align-items: center;
+			  justify-content: center;
+				position: absolute;
+				height: 100%;
+			}
+
+			#navbar {
+				background-color: #000;
+				color: #eee;
+				line-height: 25px;
+			}
+
+			#navbar a:hover, #navbar a:focus {
+				color: #aaa;
+			}
+
+			#comments {
+				padding: 6rem 0;
+				/*padding-top: 54px;*/
+			}
+
+			#comments footer {
+				background-color: transparent;
 			}
 		</style>
 	</head>
 	<body class="tud-theme-defs tud-theme-4c">
-		<div class="container" id="header">
-		    <a href="https://www.fachschaft.informatik.tu-darmstadt.de">
-					<img src="/picview/style/d120/img/d120_logo.png" id="mainLogo" alt="D120: Fachschaft Informatik" class="tud-theme-filled pull-left">
-				</a>
-		    <a href="https://www.tu-darmstadt.de" id="responsivelogo"><img src="/picview/style/d120/img/tu_da_logo.png" alt="Technische Universität Darmstadt" class="pull-right"></a>
-		</div>
 
-		<nav id="service-navbar" class="navbar navbar-default tud-theme-filled">
-		    <div class="container">
-		        <ul class="header-navbar pull-right nav navbar-nav">
-		            <li class="active"><a href="https://www.fachschaft.informatik.tu-darmstadt.de"><i class="fa fa-home fa-lg"></i> <span class="hidden-xs">Webseite</span></a></li>
-		            <li><a href="https://daswesentliche.fachschaft.informatik.tu-darmstadt.de"><i class="fa fa-newspaper-o fa-lg"></i> <span class="hidden-xs">dasWESENtliche</span></a></li>
-		            <li><a href="https://www.fachschaft.informatik.tu-darmstadt.de/forum"><i class="fa fa-comments-o fa-lg"></i> <span class="hidden-xs">Forum</span></a></li>
-		            <li><a href="https://www.informatik.tu-darmstadt.de"><i class="fa fa-university fa-lg"></i> <span class="hidden-xs">Fachbereich</span></a></li>
-		        </ul>
+		<nav id="navbar" class="navbar navbar-default navbar-fixed-top navbar-fix">
+			<div class="container-fluid">
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <a href="/picview" class="navbar-brand">picView</a>
 		    </div>
-		</nav>
 
-		<div class="container">
-			<div id="main" class="row">
-				<div class="col-lg-3 col-md-4 col-sm-5">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar" aria-expanded="false" aria-controls="sidebar">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<ul id="sidebar" class="nav sidebar-nav navbar-collapse collapse tud-theme-colored">
-						%navigation%
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<div class="navbar-header">
+						<div class="nav navbar-text">
+							<ol class="breadcrumb" style="margin-bottom: 0;">
+								%breadcrumb%
+							</ol>
+						</div>
+					</div>
+					<ul class="nav navbar-nav navbar-right">
+						%actions%
 					</ul>
 				</div>
-				<div id="content" class="col-lg-9 col-md-8 col-xs-12 col-sm-7">
-
-					<!--<h2>picView: %pagetitle%</h2>-->
-					<ol class="breadcrumb">
-						%breadcrumb%
-					</ol>
-
-					<div id="gallery">
-						%content%
-					</div>
-				</div>
 			</div>
+		</nav>
+		<div id="main" class="carousel">
+				%content%
+		</div>
+		<div id="comments" class="container">
+			%comments%
 		</div>
 		<footer class="footer">
 			<div class="container">
@@ -87,9 +106,25 @@
 		</footer>
 		<script src="/picview/node_modules/jquery/dist/jquery.min.js"></script>
 		<script src="/picview/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-		<script src="/picview/node_modules/justifiedGallery/dist/js/jquery.justifiedGallery.min.js"></script>
 		<script>
-			$('.img-gallery').justifiedGallery();
+			var list = localStorage.highlightlist||"";
+			$("body").keydown(function(e) {
+				//console.log(e.which);
+				left = $(".carousel-control.left").attr("href");
+				right = $(".carousel-control.right").attr("href");
+				if (e.which==37 && left) location=left;
+				else if (e.which==39 && right) location=right;
+				/*else if (e.which==32) {
+					addName(location.pathname);
+					e.preventDefault();
+					return false;
+				}*/
+			});
+			function addName(str) {
+				list+=str+"\\n";
+				localStorage.highlightlist=list;
+				console.log(list);
+			}
 		</script>
 	</body>
 </html>
