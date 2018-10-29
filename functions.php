@@ -208,10 +208,10 @@ function show_pictures($path, $currpath) {
 } // show_pictures()
 
 function show_breadcrumb($path) {
-  global $BASE_URI;
+  global $BASE_URI, $galleryConfig;
 	$url = $BASE_URI.'/p/';
 	$parts = explode("/", $path);
-	$r = "<li><a href='$url'>PicView</a></li>";
+	$r = "<li><a href='$url'>$galleryConfig[title]</a></li>";
 
 	for($i = 1; $i < count($parts) - 1; $i++) {
 		$url .= $parts[$i] . '/';
@@ -243,13 +243,15 @@ function legal_image($img, $path) {
 } // legal_image()
 
 function image_write($im, $text, $size, $x, $y) {
-	$white = ImageColorAllocate ($im, 0, 0, 0);
-	$black = ImageColorAllocate ($im, 255, 255, 255);
-	ImageString ($im, $size, $x+0, $y+0, $text, $black);
-	ImageString ($im, $size, $x+2, $y+0, $text, $black);
-	ImageString ($im, $size, $x+0, $y+2, $text, $black);
-	ImageString ($im, $size, $x+2, $y+2, $text, $black);
-	ImageString ($im, $size, $x+1, $y+1, $text, $white);
+  global $font_file;
+  putenv('GDFONTPATH=' . realpath('.'));
+	$black = ImageColorAllocate ($im, 0, 0, 0);
+	$white = ImageColorAllocate ($im, 255, 255, 255);
+  ImageTTFText ($im, $size, 0, $x+0, $y+9, $white, $font_file, $text);
+  ImageTTFText ($im, $size, 0, $x+0, $y+11, $white, $font_file, $text);
+  ImageTTFText ($im, $size, 0, $x+2, $y+9, $white, $font_file, $text);
+  ImageTTFText ($im, $size, 0, $x+2, $y+11, $white, $font_file, $text);
+  ImageTTFText ($im, $size, 0, $x+1, $y+10, $black, $font_file, $text);
 	return $im;
 } // image_write()
 

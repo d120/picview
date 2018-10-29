@@ -67,7 +67,7 @@ if ($action === 't') {
 	if (file_exists($save_name)) {
 		$new_image = @ImageCreateFromPNG($save_name);
 		imagesavealpha($new_image, true);
-		imagealphablending($new_image, false);
+		//imagealphablending($new_image, false);
 
 	} else {
 		if(preg_match("/\.(png)$/i", $pictures_path.$path))
@@ -92,7 +92,7 @@ if ($action === 't') {
 
 			# important part one
 			imagesavealpha($new_image, true);
-			imagealphablending($new_image, false);
+			//imagealphablending($new_image, false);
 			# important part two
 			$transp = imagecolorallocatealpha($new_image, 255, 255, 255, 127);
 			imagefill($new_image, 0, 0, $transp);
@@ -103,7 +103,7 @@ if ($action === 't') {
 
 			# important part one
 			imagesavealpha($new_image, true);
-			imagealphablending($new_image, false);
+			//imagealphablending($new_image, false);
 			# important part two
 			$transp = imagecolorallocatealpha($new_image, 255, 255, 255, 127);
 			imagefill($new_image, 0, 0, $transp);
@@ -148,7 +148,7 @@ if ($action === 't') {
 	if (file_exists($save_name)) {
 		$new_image = @ImageCreateFromPNG($save_name);
 		imagesavealpha($new_image, true);
-		imagealphablending($new_image, false);
+		//imagealphablending($new_image, false);
 	} else {
 		if(preg_match("/\.(png)/i", $pictures_path.$path))
 			$im = @ImageCreateFromPNG($pictures_path.$path) or die ("Kann keinen neuen GD-Bild-Stream erzeugen (PNG)");
@@ -175,7 +175,7 @@ if ($action === 't') {
 
 			# important part one
 			imagesavealpha($new_image, true);
-			imagealphablending($new_image, false);
+			//imagealphablending($new_image, false);
 			# important part two
 			$transp = imagecolorallocatealpha($new_image, 255, 255, 255, 127);
 			imagefill($new_image, 0, 0, $transp);
@@ -186,7 +186,7 @@ if ($action === 't') {
 
 			# important part one
 			imagesavealpha($new_image, true);
-			imagealphablending($new_image, false);
+			//imagealphablending($new_image, false);
 			# important part two
 			$transp = imagecolorallocatealpha($new_image, 255, 255, 255, 127);
 			imagefill($new_image, 0, 0, $transp);
@@ -204,7 +204,7 @@ if ($action === 't') {
 
 	$copyright_file = dirname($pictures_path.$path).'/'.$copyright_file;
 	if (file_exists($copyright_file)) $text = join('',file($copyright_file));
-	$new_image = image_write($new_image, $text, 6, 5, 5);
+	$new_image = image_write($new_image, $text, 10, 5, 5);
 
 	Header('Content-type: image/png');
 
@@ -215,16 +215,17 @@ if ($action === 't') {
 	if (!legal_image($pictures_path.$path, $pictures_path)) die ('Fehler');
 
     $copyright_file = dirname($pictures_path.$path).'/'.$copyright_file;
+
     if (file_exists($copyright_file)) $text = join('',file($copyright_file));
     if(preg_match("/\.(png)$/i", $pictures_path.$path)) {
         $im = @ImageCreateFromPNG($pictures_path.$path) or die ("Kann keinen neuen GD-Bild-Stream erzeugen");
-        $im = image_write($im, $text, 6, 5, 5);
+        $im = image_write($im, $text, 10, 5, 5);
         Header('Content-type: image/png');
         ImagePNG($im);
     }
     elseif(preg_match("/\.(jpg)$/i", $pictures_path.$path)) {
         $im = @ImageCreateFromJPEG($pictures_path.$path) or die ("Kann keinen neuen GD-Bild-Stream erzeugen");
-        $im = image_write($im, $text, 6, 5, 5);
+        $im = image_write($im, $text, 10, 5, 5);
         Header('Content-type: image/jpeg');
         ImageJPEG($im);
     }
