@@ -4,11 +4,11 @@
 		<title>picView: %pagetitle% | D120.de</title>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 
-		<link rel="stylesheet" type="text/css" href="/picview/node_modules/bootstrap/dist/css/bootstrap.min.css" />
-		<link rel="stylesheet" type="text/css" href="/picview/node_modules/font-awesome/css/font-awesome.min.css" />
-		<link rel="stylesheet" type="text/css" href="/picview/node_modules/typeface-libre-franklin/index.css" />
-		<link rel="stylesheet" type="text/css" href="/picview/style/d120/css/custom.css" />
-		<link rel="stylesheet" type="text/css" href="/picview/style/d120/css/tudesign.css" />
+		<link rel="stylesheet" type="text/css" href="%base_uri%/node_modules/bootstrap/dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="%base_uri%/node_modules/font-awesome/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="%base_uri%/node_modules/typeface-libre-franklin/index.css" />
+		<link rel="stylesheet" type="text/css" href="%base_uri%/style/d120/css/custom.css" />
+		<link rel="stylesheet" type="text/css" href="%base_uri%/style/d120/css/tudesign.css" />
 		<style>
 			#main {
 				min-height: 100vh;
@@ -104,8 +104,8 @@
 				</div>
 			</div>
 		</footer>
-		<script src="/picview/node_modules/jquery/dist/jquery.min.js"></script>
-		<script src="/picview/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="%base_uri%/node_modules/jquery/dist/jquery.min.js"></script>
+		<script src="%base_uri%/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script>
 			var list = localStorage.highlightlist||"";
 			$("body").keydown(function(e) {

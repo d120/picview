@@ -276,6 +276,13 @@ function make_lightbox($vars) {
 	return make_page_from_template($vars, $template);
 }
 
+function make_basedir() {
+  global $BASE_URI;
+  $base = dirname(dirname($BASE_URI));
+  if ($base == '/') return "/";
+  return $base;
+}
+
 
 // $imgSrc - GD image handle of source image
 // $angle - angle of rotation. Needs to be positive integer
@@ -407,5 +414,14 @@ function get_dir($path, $currpath, $type) {
 	chdir($cwd);
 	return $dir;
 } // get_dir()
+
+function ends_with($haystack, $needle)
+{
+    $length = strlen($needle);
+    if ($length == 0) {
+        return true;
+    }
+    return (substr($haystack, -$length) === $needle);
+}
 
 ?>

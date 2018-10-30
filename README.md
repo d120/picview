@@ -11,6 +11,18 @@ An image gallery.
 * Directory navigation
 * Customizable theme
 
+## Installation
+
+1. `git clone <this repository> --recursive`
+2. `yarn install`
+
+### Upgrading from the old version
+
+1. `git pull <this repository>`
+2. `yarn install`
+3. `cd style/d120`
+4. `git sumbodule update --init`
+
 ## Configuration
 
 The entire instance of picview is configured by some global variables in

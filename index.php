@@ -45,6 +45,8 @@ $BASE_URI = $_SERVER['SCRIPT_NAME'].'/'.$galleryId;
 if (!isset($galleryConfig['title'])) $galleryConfig['title'] = $galleryId;
 
 require_basicauth();
+header("Access-Control-Allow-Origin: http://localhost:8080");
+header('Access-Control-Allow-Credentials: true');
 
 if (strlen($action) != 1) {
 	$path = $action . '/' . $path;
@@ -343,6 +345,7 @@ if ($action === 't') {
 		$arr['comments'] .= '</form>';
 
     $arr['breadcrumb'] .= show_breadcrumb($path);
+		$arr['base_uri'] = make_basedir();
 
     echo make_lightbox($arr);
 } elseif ($action === 's') {
@@ -406,11 +409,60 @@ if ($action === 't') {
 #	exit;
   Header('Location: '.$BASE_URI.'/c'.$path.'?r');
 } elseif ($action === 'j') {
-  header("Content-Type: application/json");
+	header("Content-Type: application/json");
+
+	echo json_encode([
+		"files" => get_dir($pictures_path, $path, 'f'),
+		"dirs" => get_dir($pictures_path, $path, 'd')
+	]);
+
+} elseif ($action === 'h') {
+  header("Content-Type: application/hal+json");
+
+	if (!ends_with($path, '/')) $path = $path."/";
+
+	$links = [
+		"self" => [
+			"href" => $BASE_URI.'/h'.$path
+		]
+	];
+	if ($path != '/')
+		$links["up"] = [
+			"href" => $BASE_URI.'/h'.dirname($path)
+		];
+
+	$files = get_dir($pictures_path, $path, 'f');
+	$dirs = get_dir($pictures_path, $path, 'd');
+
+	$embedded_files = [];
+	foreach ($files as $file)
+		$embedded_files[] = [
+			"title" => $file,
+			"_links" => [
+				"alternate" => [
+					["name" => "thumbnail", "href" => $BASE_URI.'/t'.$path.$file, "type" => "image/png"],
+					["name" => "medium", "href" => $BASE_URI.'/m'.$path.$file, "type" => "image/png"],
+					["name" => "image", "href" => $BASE_URI.'/i'.$path.$file],
+				]
+			]
+		];
+
+	$embedded_dirs = [];
+	foreach ($dirs as $dir)
+		$embedded_dirs[] = [
+			"title" => $dir,
+			"_links" => [
+				"self" => ["href" => $BASE_URI.'/h'.$path.$dir],
+			]
+		];
+
   echo json_encode([
-      "files" => get_dir($pictures_path, $path, 'f'),
-      "dirs" => get_dir($pictures_path, $path, 'd')
-    ]);
+		"_links" => $links,
+			"_embedded" => [
+				"files" => $embedded_files,
+				"dirs" => $embedded_dirs,
+			]
+		]);
 
 } else {
 	$arr = Array();
@@ -418,6 +470,7 @@ if ($action === 't') {
 	$arr['navigation'] = show_directory($pictures_path, $path);
 	$arr['content'] = show_pictures($pictures_path, $path);
 	$arr['breadcrumb'] = show_breadcrumb($path);
+	$arr['base_uri'] = make_basedir();
 	echo make_page($arr);
 }
 
