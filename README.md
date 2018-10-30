@@ -152,6 +152,7 @@ any given path within the gallery. The available options are:
 * `d`: Delete and thus regenerate the preview images
 * `p`: Show a gallery of the images within the directory
 * `j`: Deliver a JSON representation of the current resource
+* `h`: Deliver a HAL+JSON representation of the current resource
 
 The URLs for these actions always have the form `/picview/index.php/{gallery}/{action}/{resource}`
 
@@ -166,6 +167,7 @@ by dynamic content. Tags correspond to entries in the context array passed to
 The general page template is used for the `p` action to display the pictures
 and subfolders of a resource path. The available tags are:
 
+* `%base_uri%`: Prefix for absolute path to the root folder (can be blank for root)
 * `%breadcrumb%`: A sequence of `<li><a href="...` tags, listing the directories from the root of the gallery to the current resource.
 * `%content%`: The galleries for the current folder and a preview of the galleries of the first-level subfolders.
 * `%navigation%`: A sequence of `<li><a href="...` tags, listing an `[up]` and all subfolders of the current resource.
@@ -178,6 +180,7 @@ for any given image, as well as allowing to navigate to the adjacent images. The
 available tags are:
 
 * `%actions%`: A sequence of `<li><a href="...` tags, for actions that can be applied to the current resource.
+* `%base_uri%`: Prefix for absolute path to the root folder (can be blank for root)
 * `%breadcrumb%`: A sequence of `<li><a href="...` tags, listing the directories from the root of the gallery to the current resource.
 * `%comments%`: A sequence of blockquotes and a form for displaying and writing comments.
 * `%content%`: The carousel of the current image and the links to the adjancent images.
