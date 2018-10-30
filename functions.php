@@ -209,15 +209,23 @@ function show_pictures($path, $currpath) {
 
 function show_breadcrumb($path) {
   global $BASE_URI, $galleryConfig;
-	$url = $BASE_URI.'/p/';
-	$parts = explode("/", $path);
-	$r = "<li><a href='$url'>$galleryConfig[title]</a></li>";
 
-	for($i = 1; $i < count($parts) - 1; $i++) {
-		$url .= $parts[$i] . '/';
-		$r .= "<li><a href='$url'>".$parts[$i]."</a></li>";
-	}
+  if ($path == "/") {
+    $r = "<li><span>$galleryConfig[title]</span></li>";
+  } else {
+    $url = $BASE_URI.'/p/';
+    $parts = explode("/", $path);
+    $r = "<li><a href='$url'>$galleryConfig[title]</a></li>";
 
+    for($i = 1; $i < count($parts) - 2; $i++) {
+      $url .= $parts[$i] . '/';
+      $r .= "<li><a href='$url'>".$parts[$i]."</a></li>";
+    }
+
+    if (count(parts) > 0) {
+      $r .= "<li><span>".$parts[$i]."</span></li>";
+    }
+  }
 	return $r;
 }
 

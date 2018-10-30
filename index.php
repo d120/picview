@@ -344,7 +344,7 @@ if ($action === 't') {
 		$arr['comments'] .= '  </div>';
 		$arr['comments'] .= '</form>';
 
-    $arr['breadcrumb'] .= show_breadcrumb($path);
+    $arr['breadcrumb'] .= show_breadcrumb($path."/".$curr_pic);
 		$arr['base_uri'] = make_basedir();
 
     echo make_lightbox($arr);
