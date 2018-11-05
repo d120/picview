@@ -26,10 +26,9 @@
 
 	<div id="Subheader">
 		<ul id="Menu1">
-			  <li class="current"><a href="http://www.d120.de/startseite/">Startseite</a></li>
-			  <li class="link"><a href="http://daswesentliche.d120.de/">das Wesentliche</a></li>
-
-			  <li class="link"><a href="http://www.d120.de/forum/">Forum</a></li>
+			<li class="current"><a href="http://www.d120.de/startseite/">Startseite</a></li>
+			<li class="link"><a href="http://daswesentliche.d120.de/">das Wesentliche</a></li>
+			<li class="link"><a href="http://www.d120.de/forum/">Forum</a></li>
 		</ul>
 		<div id="MenuSpacerLeft"></div>
 		<div id="MenuSpacerRight"></div>
@@ -57,10 +56,10 @@
 				Du bist hier: <a href="https://www.fachschaft.informatik.tu-darmstadt.de/fachschaft/">Fachschaft</a> &raquo; %breadcrumb%
 			</div>
 			<div id="Layout">
-			    <div class="picviewHeadline">
-				<h1>%pagetitle%</h1>
-		            </div>
-			    %content%
+				<div class="picviewHeadline">
+					<h1>%pagetitle%</h1>
+				</div>
+				%content%
 			</div>
 		</div>
 	</div>
@@ -71,11 +70,10 @@
 		</div>
 
 		<p>2010 Fachschaft Informatik der Technischen Universität Darmstadt<br />
-	   		<a href="https://www.fachschaft.informatik.tu-darmstadt.de/kontakt">Kontakt</a> &bull;
-	   		<a href="https://www.fachschaft.informatik.tu-darmstadt.de/impressum">Impressum</a>
-	   	</p>
+			<a href="https://www.fachschaft.informatik.tu-darmstadt.de/kontakt">Kontakt</a> &bull;
+			<a href="https://www.fachschaft.informatik.tu-darmstadt.de/impressum">Impressum</a>
+		</p>
 
 	</div>
-	<script> $(".img-gallery").justifiedGallery({ rowHeight: 150 }); </script>
 	</body>
 </html>

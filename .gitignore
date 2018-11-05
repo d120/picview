@@ -2,6 +2,7 @@ thumbs/
 thumbs
 comments/
 comments
+node_modules/
 *~
 
 config.php
