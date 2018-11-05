@@ -70,17 +70,17 @@ function require_basicauth() {
 }
 
 function show_directory($path, $currpath) {
-	global $pictures_path, $BASE_URI;
+  global $pictures_path, $BASE_URI;
+  $r = '';
 
 	$currpath = str_replace('//','/',$currpath);
 	$currpath = str_replace('\\\\','/',$currpath);
-	if ($currpath == '/') $currpath = '';
 
 	$dir = get_dir($path, $currpath, 'd');
 
 	// Backlink to parent directory
-	if ($currpath != '')
-		$r .= '<li><a href="'.$BASE_URI.'/p/'.$currpath.'../">[up]</a></li>'."\n";
+	if ($currpath != '/')
+		$r .= '<li><a href="'.$BASE_URI.'/p'.$currpath.'../">[up]</a></li>'."\n";
 
 	// Display directory list
 	foreach($dir as $d) {
@@ -88,7 +88,7 @@ function show_directory($path, $currpath) {
 			$r .= "#1 Illegaler Pfad! ($d)";
 			return $r;
 		}
-		$r .= '<li><a href="'.$BASE_URI.'/p/'.$currpath.$d.'/'.'">'.$d.'</a></li>'."\n";
+		$r .= '<li><a href="'.$BASE_URI.'/p'.$currpath.$d.'/'.'">'.$d.'</a></li>'."\n";
 	}
 	return $r;
 } // show_directory()
@@ -96,7 +96,8 @@ function show_directory($path, $currpath) {
 function show_pictures($path, $currpath) {
 	global $pictures_path, $comments_path, $thumbs_path, $thumbs_per_page, $BASE_URI;
 
-	$start = (int)$_GET['n'];
+  $start = (int)$_GET['n'];
+  $r = '';
 
 	$dir = get_dir($path, $currpath, 'f');
 
@@ -116,6 +117,7 @@ function show_pictures($path, $currpath) {
 				$r .= '<a href="'.$BASE_URI.'/p'.$currpath.$_d.'/'.'">';
 				$r .= "<h2>{$currpath}{$d}</h2>";
 				$r .= "</a>\n";
+        $r .= '<div class="img-gallery" style="width:100%"">';
 				foreach($s_d as $s) {
 					if ($count2++ > 5) break;
 					$d = $_d.'/'.$s;
@@ -141,7 +143,8 @@ function show_pictures($path, $currpath) {
 
 
 				}
-				$r .= '<a href="'.$BASE_URI.'/p/'.$currpath.$_d.'/'.'">';
+        $r .= '</div>';
+        $r .= '<a href="'.$BASE_URI.'/p'.$currpath.$_d.'/'.'">';
 				$r .= 'Mehr...';
 				$r .= "</a>\n";
 			}
@@ -158,9 +161,9 @@ function show_pictures($path, $currpath) {
 		if ($start >= $i && $start < $show_to)
 			$r .= '<b>['. ($i + 1) .'-'. ($show_to) .']</b> ';
 		else
-			$r .= '[<a href="'.$BASE_URI.'/p/'.$currpath.'?n='.($i).'">'. ($i + 1) .'-'. ($show_to) .'</a>] ';
+			$r .= '[<a href="'.$BASE_URI.'/p'.$currpath.'?n='.($i).'">'. ($i + 1) .'-'. ($show_to) .'</a>] ';
 	}
-	$r .= '</p>';
+	$r .= '</p><div class="img-gallery">';
 
 	$count = -1;
 	foreach($dir as $d) {
@@ -182,12 +185,12 @@ function show_pictures($path, $currpath) {
 		$size[3] = $size[3];
 #		print_r($size);
 
-		$r .= '<a href="'.$BASE_URI.'/c/'.$currpath.'/'.$d.'?n='.$start.'">';
-		$r .= '<img title="'.$number_comments.' Kommentare" src="'.$BASE_URI.'/t/'.$currpath.'/'.$d.'?comments='.$number_comments.'" '.$size[3].' class="img'. ($size[0] < $size[1] ? 'h' : 'v') .'" />';
-		$r .= "</a>\n";
+		$r .= '<a href="'.$BASE_URI.'/c'.$currpath.$d.'?n='.$start.'">';
+		$r .= '<img title="'.$number_comments.' Kommentare" src="'.$BASE_URI.'/t'.$currpath.$d.'?comments='.$number_comments.'" '.$size[3].' class="img'. ($size[0] < $size[1] ? 'h' : 'v') .'" />';
+		$r .= "</a>";
 	}
 
-	$r .= '<p>';
+	$r .= '</div><p>';
 	$max = count($dir);
 	for($i = 0; $i < $max; $i += $thumbs_per_page) {
 		$show_to = $i + $thumbs_per_page;
@@ -195,7 +198,7 @@ function show_pictures($path, $currpath) {
 		if ($start >= $i && $start < $show_to)
 			$r .= '<b>['. ($i + 1) .'-'. ($show_to) .']</b> ';
 		else
-			$r .= '[<a href="'.$BASE_URI.'/p/'.$currpath.'?n='.($i).'">'. ($i + 1) .'-'. ($show_to) .'</a>] ';
+			$r .= '[<a href="'.$BASE_URI.'/p'.$currpath.'?n='.($i).'">'. ($i + 1) .'-'. ($show_to) .'</a>] ';
 	}
 	$r .= '</p>';
 
@@ -205,16 +208,24 @@ function show_pictures($path, $currpath) {
 } // show_pictures()
 
 function show_breadcrumb($path) {
-  global $BASE_URI;
-	$url = $BASE_URI.'/p/';
-	$parts = explode("/", $path);
-	$r = "<a href='$url'>PicView</a>";
-	
-	for($i = 1; $i < count($parts) - 1; $i++) {
-		$url .= $parts[$i] . '/';
-		$r .= " &#187; <a href='$url'>".$parts[$i]."</a>";
-	}
+  global $BASE_URI, $galleryConfig;
 
+  if ($path == "/") {
+    $r = "<li><span>$galleryConfig[title]</span></li>";
+  } else {
+    $url = $BASE_URI.'/p/';
+    $parts = explode("/", $path);
+    $r = "<li><a href='$url'>$galleryConfig[title]</a></li>";
+
+    for($i = 1; $i < count($parts) - 2; $i++) {
+      $url .= $parts[$i] . '/';
+      $r .= "<li><a href='$url'>".$parts[$i]."</a></li>";
+    }
+
+    if (count(parts) > 0) {
+      $r .= "<li><span>".$parts[$i]."</span></li>";
+    }
+  }
 	return $r;
 }
 
@@ -240,75 +251,94 @@ function legal_image($img, $path) {
 } // legal_image()
 
 function image_write($im, $text, $size, $x, $y) {
-	$white = ImageColorAllocate ($im, 0, 0, 0);
-	$black = ImageColorAllocate ($im, 255, 255, 255);
-	ImageString ($im, $size, $x+0, $y+0, $text, $black);
-	ImageString ($im, $size, $x+2, $y+0, $text, $black);
-	ImageString ($im, $size, $x+0, $y+2, $text, $black);
-	ImageString ($im, $size, $x+2, $y+2, $text, $black);
-	ImageString ($im, $size, $x+1, $y+1, $text, $white);
+  global $font_file;
+  putenv('GDFONTPATH=' . realpath('.'));
+	$black = ImageColorAllocate ($im, 0, 0, 0);
+	$white = ImageColorAllocate ($im, 255, 255, 255);
+
+  // Create white outline
+  for( $dx=0; $dx<5; $dx++ )
+      for( $dy=0; $dy<5; $dy++ )
+        ImageTTFText ($im, $size, 0, $x+$dx, $y+$dy, $white, $font_file, $text);
+
+  // Draw text
+  ImageTTFText ($im, $size, 0, $x+2, $y+2, $black, $font_file, $text);
 	return $im;
 } // image_write()
 
-function make_page($vars) {
-	global $template_file;
-	$template = join('', file($template_file));
-
-	foreach($vars as $x => $y)
+function make_page_from_template($vars, $template) {
+  foreach($vars as $x => $y)
 		$template = str_replace('%' . $x . '%', $y, $template);
 	return $template;
 }
 
+function make_page($vars) {
+	global $template_file;
+  $template = join('', file($template_file));
+	return make_page_from_template($vars, $template);
+}
+
+function make_lightbox($vars) {
+  global $lightbox_file;
+  $template = join('', file($lightbox_file));
+	return make_page_from_template($vars, $template);
+}
+
+function make_basedir() {
+  global $BASE_URI;
+  $base = dirname(dirname($BASE_URI));
+  if ($base == '/') return "/";
+  return $base;
+}
 
 
+// $imgSrc - GD image handle of source image
+// $angle - angle of rotation. Needs to be positive integer
+// angle shall be 0,90,180,270, but if you give other it
+// will be rouned to nearest right angle (i.e. 52->90 degs,
+// 96->90 degs)
+// returns GD image handle of rotated image.
+function ImageRotate_PV( $imagePath, $angle )
+{
 
-// $imgSrc - GD image handle of source image 
-// $angle - angle of rotation. Needs to be positive integer 
-// angle shall be 0,90,180,270, but if you give other it 
-// will be rouned to nearest right angle (i.e. 52->90 degs, 
-// 96->90 degs) 
-// returns GD image handle of rotated image. 
-function ImageRotate_PV( $imagePath, $angle ) 
-{ 
+	$imgSrc=ImageCreateFromPNG($imagePath);
 
-	$imgSrc=ImageCreateFromJPEG($imagePath);
+   // ensuring we got really RightAngle (if not we choose the closest one)
+   $angle = min( ( (int)(($angle+45) / 90) * 90), 270 );
 
-   // ensuring we got really RightAngle (if not we choose the closest one) 
-   $angle = min( ( (int)(($angle+45) / 90) * 90), 270 ); 
-
-   // no need to fight 
-   if( $angle == 0 ) 
+   // no need to fight
+   if( $angle == 0 )
        return;
 
-   // dimenstion of source image 
-   $srcX = imagesx( $imgSrc ); 
-   $srcY = imagesy( $imgSrc ); 
+   // dimenstion of source image
+   $srcX = imagesx( $imgSrc );
+   $srcY = imagesy( $imgSrc );
 
-   switch( $angle ) 
-       { 
-       case 90: 
-           $imgDest = imagecreatetruecolor( $srcY, $srcX ); 
-           for( $x=0; $x<$srcX; $x++ ) 
-               for( $y=0; $y<$srcY; $y++ ) 
-                   imagecopy($imgDest, $imgSrc, $srcY-$y-1, $x, $x, $y, 1, 1); 
-           break; 
+   switch( $angle )
+       {
+       case 90:
+           $imgDest = imagecreatetruecolor( $srcY, $srcX );
+           for( $x=0; $x<$srcX; $x++ )
+               for( $y=0; $y<$srcY; $y++ )
+                   imagecopy($imgDest, $imgSrc, $srcY-$y-1, $x, $x, $y, 1, 1);
+           break;
 
-       case 180: 
-           $imgDest = ImageFlip( $imgSrc, IMAGE_FLIP_BOTH ); 
-           break; 
+       case 180:
+           $imgDest = ImageFlip( $imgSrc, IMAGE_FLIP_BOTH );
+           break;
 
-       case 270: 
-           $imgDest = imagecreatetruecolor( $srcY, $srcX ); 
-           for( $x=0; $x<$srcX; $x++ ) 
-               for( $y=0; $y<$srcY; $y++ ) 
-                   imagecopy($imgDest, $imgSrc, $y, $srcX-$x-1, $x, $y, 1, 1); 
-           break; 
-       } 
+       case 270:
+           $imgDest = imagecreatetruecolor( $srcY, $srcX );
+           for( $x=0; $x<$srcX; $x++ )
+               for( $y=0; $y<$srcY; $y++ )
+                   imagecopy($imgDest, $imgSrc, $y, $srcX-$x-1, $x, $y, 1, 1);
+           break;
+       }
 
 	ImageDestroy($imgSrc);
 #	ImageInterlace($imgDest, 0);
-	ImageJPEG($imgDest, $imagePath);
-	ImageDestroy($imgDest); 
+	ImagePNG($imgDest, $imagePath);
+	ImageDestroy($imgDest);
 }
 
 function quickRotate($imagePath,$angle){
@@ -363,7 +393,7 @@ exec('contert -rotate 90 /home/arnep/tmp/test.jpg /home/arnep/tmp/bla.jpg');
 	   $b--;
 	 }
 	}
-	
+
 	ImageDestroy($src_img);
 	ImageInterlace($dst_img,0);
 	ImageJPEG($dst_img,$imagePath);
@@ -392,5 +422,14 @@ function get_dir($path, $currpath, $type) {
 	chdir($cwd);
 	return $dir;
 } // get_dir()
+
+function ends_with($haystack, $needle)
+{
+    $length = strlen($needle);
+    if ($length == 0) {
+        return true;
+    }
+    return (substr($haystack, -$length) === $needle);
+}
 
 ?>
