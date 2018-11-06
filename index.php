@@ -77,13 +77,8 @@ if ($action === 't') {
 		$background_color = ImageColorAllocate ($im, 255, 255, 255);
 
 		$h = $thumb_size;
-		if ($size[0] > $size[1]) {
-			$width  = $size[0]*$h/$size[1];
-			$height = $h;
-		} else {
-	        $width  = $h;
-	        $height = $size[1]*$h/$size[0];
-		}
+		$width  = $size[0]*$h/$size[1];
+		$height = $h;
 
 		if (function_exists('imagecreatetruecolor')) {
 			$new_image = imagecreatetruecolor($width, $height);
