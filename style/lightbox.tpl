@@ -10,11 +10,10 @@
 		<link rel="stylesheet" type="text/css" href="%base_uri%/style/d120/css/tudesign.css" />
 		<style>
 		#main {
-			min-height: 100vh;
+			min-height: calc(100vh - 50px);
 			background-color: #333;
-			/*padding-top: 54px;*/
 		}
-
+		#main .carousel-inner img { max-height: calc(100vh - 60px); }
 		.carousel-inner {
 			display: flex;
 			align-items: center;
@@ -45,7 +44,7 @@
 	</head>
 	<body class="tud-theme-defs tud-theme-4c">
 
-		<nav id="navbar" class="navbar navbar-default navbar-fixed-top navbar-fix">
+		<nav id="navbar" class="navbar navbar-default navbar-static-top navbar-fix">
 			<div class="container-fluid">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header">
