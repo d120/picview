@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="utf-8">
 		<title>picView: %pagetitle% | D120.de</title>
-		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="%base_uri%/style/d120/node_modules/bootstrap/dist/css/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="%base_uri%/style/d120/node_modules/font-awesome/css/font-awesome.min.css" />
 		<link rel="stylesheet" type="text/css" href="%base_uri%/style/d120/css/custom.css" />
