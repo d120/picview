@@ -34,7 +34,7 @@ include('./functions.php');
 if (isset($_SERVER['PATH_INFO'])) {
 	list(, $galleryId, $action, $path)=explode('/',$_SERVER['PATH_INFO'],4);
 } else {
-	$path='';
+	$path='/';
 	$action = '';
 	$galleryId = 'picview';
 }

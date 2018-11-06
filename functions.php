@@ -75,13 +75,12 @@ function show_directory($path, $currpath) {
 
 	$currpath = str_replace('//','/',$currpath);
 	$currpath = str_replace('\\\\','/',$currpath);
-	if ($currpath == '/') $currpath = '';
 
 	$dir = get_dir($path, $currpath, 'd');
 
 	// Backlink to parent directory
-	if ($currpath != '')
-		$r .= '<li><a href="'.$BASE_URI.'/p/'.$currpath.'../">[up]</a></li>'."\n";
+	if ($currpath != '/')
+		$r .= '<li><a href="'.$BASE_URI.'/p'.$currpath.'../">[up]</a></li>'."\n";
 
 	// Display directory list
 	foreach($dir as $d) {
@@ -89,7 +88,7 @@ function show_directory($path, $currpath) {
 			$r .= "#1 Illegaler Pfad! ($d)";
 			return $r;
 		}
-		$r .= '<li><a href="'.$BASE_URI.'/p/'.$currpath.$d.'/'.'">'.$d.'</a></li>'."\n";
+		$r .= '<li><a href="'.$BASE_URI.'/p'.$currpath.$d.'/'.'">'.$d.'</a></li>'."\n";
 	}
 	return $r;
 } // show_directory()
@@ -143,7 +142,7 @@ function show_pictures($path, $currpath) {
 
 
 				}
-				$r .= '</div><a href="'.$BASE_URI.'/p/'.$currpath.$_d.'/'.'">';
+				$r .= '</div><a href="'.$BASE_URI.'/p'.$currpath.$_d.'/'.'">';
 				$r .= 'Mehr...';
 				$r .= "</a>\n";
 			}
@@ -160,7 +159,7 @@ function show_pictures($path, $currpath) {
 		if ($start >= $i && $start < $show_to)
 			$r .= '<b>['. ($i + 1) .'-'. ($show_to) .']</b> ';
 		else
-			$r .= '[<a href="'.$BASE_URI.'/p/'.$currpath.'?n='.($i).'">'. ($i + 1) .'-'. ($show_to) .'</a>] ';
+			$r .= '[<a href="'.$BASE_URI.'/p'.$currpath.'?n='.($i).'">'. ($i + 1) .'-'. ($show_to) .'</a>] ';
 	}
 	$r .= '</p>';
 
@@ -185,9 +184,9 @@ function show_pictures($path, $currpath) {
 		$size[3] = $size[3];
 		#print_r($size);
 
-		$r .= '<a href="'.$BASE_URI.'/c/'.$currpath.'/'.$d.'?n='.$start.'">';
-		$r .= '<img title="'.$number_comments.' Kommentare" src="'.$BASE_URI.'/t/'.$currpath.'/'.$d.'?comments='.$number_comments.'" '.$size[3].' class="img'. ($size[0] < $size[1] ? 'h' : 'v') .'" />';
-		$r .= "</a>\n";
+		$r .= '<a href="'.$BASE_URI.'/c'.$currpath.$d.'?n='.$start.'">';
+		$r .= '<img title="'.$number_comments.' Kommentare" src="'.$BASE_URI.'/t'.$currpath.$d.'?comments='.$number_comments.'" '.$size[3].' class="img'. ($size[0] < $size[1] ? 'h' : 'v') .'" />';
+		$r .= "</a>";
 	}
 	$r .= "</div>";
 
@@ -199,7 +198,7 @@ function show_pictures($path, $currpath) {
 		if ($start >= $i && $start < $show_to)
 			$r .= '<b>['. ($i + 1) .'-'. ($show_to) .']</b> ';
 		else
-			$r .= '[<a href="'.$BASE_URI.'/p/'.$currpath.'?n='.($i).'">'. ($i + 1) .'-'. ($show_to) .'</a>] ';
+			$r .= '[<a href="'.$BASE_URI.'/p'.$currpath.'?n='.($i).'">'. ($i + 1) .'-'. ($show_to) .'</a>] ';
 	}
 	$r .= '</p>';
 
