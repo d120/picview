@@ -309,6 +309,7 @@ if ($action === 't') {
     $arr['comments'] .= '</form>';
 
     $arr['breadcrumb'] .= show_breadcrumb($path);
+		$arr['base_uri'] = make_basedir();
 
     echo make_page($lightbox_file, $arr);
 } elseif ($action === 's') {
@@ -384,6 +385,7 @@ if ($action === 't') {
 	$arr['navigation'] = show_directory($pictures_path, $path);
 	$arr['content'] = show_pictures($pictures_path, $path);
 	$arr['breadcrumb'] = show_breadcrumb($path);
+	$arr['base_uri'] = make_basedir();
 	echo make_page($template_file, $arr);
 }
 

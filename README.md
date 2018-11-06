@@ -11,6 +11,18 @@ An image gallery.
 * Directory navigation
 * Customizable theme
 
+## Installation
+
+1. `git clone <this repository> --recursive`
+2. `cd style/d120 && npm install`
+
+### Upgrading from the old version
+
+1. `git pull <this repository>`
+2. `cd style/d120`
+3. `git submodule update --init`
+4. `npm install`
+
 ## Configuration
 
 The entire instance of picview is configured by some global variables in
