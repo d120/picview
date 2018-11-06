@@ -150,7 +150,7 @@ if ($action === 't') {
 
 	$copyright_file = dirname($pictures_path.$path).'/'.$copyright_file;
 	if (file_exists($copyright_file)) $text = join('',file($copyright_file));
-	$new_image = image_write($new_image, $text, 6, 5, 5);
+	$new_image = image_write($new_image, $text, 10, 5, 5);
 
 	Header('Content-type: image/jpeg');
 
@@ -164,13 +164,13 @@ if ($action === 't') {
 	if (file_exists($copyright_file)) $text = join('',file($copyright_file));
 	if(preg_match("/\.(png)$/i", $pictures_path.$path)) {
 		$im = @ImageCreateFromPNG($pictures_path.$path) or die ("Kann keinen neuen GD-Bild-Stream erzeugen");
-		$im = image_write($im, $text, 6, 5, 5);
+		$im = image_write($im, $text, 10, 5, 5);
 		Header('Content-type: image/png');
 		ImagePNG($im);
 	}
 	elseif(preg_match("/\.(jpg)$/i", $pictures_path.$path)) {
 		$im = @ImageCreateFromJPEG($pictures_path.$path) or die ("Kann keinen neuen GD-Bild-Stream erzeugen");
-		$im = image_write($im, $text, 6, 5, 5);
+		$im = image_write($im, $text, 10, 5, 5);
 		Header('Content-type: image/jpeg');
 		ImageJPEG($im);
 	}
