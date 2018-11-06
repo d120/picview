@@ -18,8 +18,8 @@
 	<body>
 
 	<div id="Header">
-		<a href="https://www.fachschaft.informatik.tu-darmstadt.de/das-wesen"><img src="https://www.fachschaft.informatik.tu-darmstadt.de/d120de/images/das-wesen-der-informatik.png" id="wesen" title="Das Wesen der Informatik" alt="Das Wesen der Informatik"https://www.fachschaft.informatik.tu-darmstadt.de/></a>
-		<a href="http://www.tu-darmstadt.de/"><img src="https://www.fachschaft.informatik.tu-darmstadt.de/d120de/images/athene.png" alt="Athene der TU Darmstadt" title="Athene der TU Darmstadt" id="athene"https://www.fachschaft.informatik.tu-darmstadt.de/></a>
+		<a href="https://www.fachschaft.informatik.tu-darmstadt.de/das-wesen"><img src="https://www.fachschaft.informatik.tu-darmstadt.de/d120de/images/das-wesen-der-informatik.png" id="wesen" title="Das Wesen der Informatik" alt="Das Wesen der Informatik"></a>
+		<a href="http://www.tu-darmstadt.de/"><img src="https://www.fachschaft.informatik.tu-darmstadt.de/d120de/images/athene.png" alt="Athene der TU Darmstadt" title="Athene der TU Darmstadt" id="athene"></a>
 		<h1>Fachschaft Informatik</h1>
 		<h2>picView: %pagetitle%</h2>
 	</div>
@@ -67,7 +67,7 @@
 
 	<div id="Footer">
 		<div class="Footer_wesen">
-			<img src="https://www.fachschaft.informatik.tu-darmstadt.de/d120de/images/das-wesen-der-informatik_unten.png" alt="Das Wesen der Informatik"https://www.fachschaft.informatik.tu-darmstadt.de/>
+			<img src="https://www.fachschaft.informatik.tu-darmstadt.de/d120de/images/das-wesen-der-informatik_unten.png" alt="Das Wesen der Informatik">
 		</div>
 
 		<p>2010 Fachschaft Informatik der Technischen Universität Darmstadt<br />
