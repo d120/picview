@@ -71,6 +71,7 @@ function require_basicauth() {
 
 function show_directory($path, $currpath) {
 	global $pictures_path, $BASE_URI;
+	$r = '';
 
 	$currpath = str_replace('//','/',$currpath);
 	$currpath = str_replace('\\\\','/',$currpath);
@@ -97,6 +98,7 @@ function show_pictures($path, $currpath) {
 	global $pictures_path, $comments_path, $thumbs_path, $thumbs_per_page, $BASE_URI;
 
 	$start = (int)$_GET['n'];
+	$r = '';
 
 	$dir = get_dir($path, $currpath, 'f');
 
@@ -160,7 +162,7 @@ function show_pictures($path, $currpath) {
 		else
 			$r .= '[<a href="'.$BASE_URI.'/p/'.$currpath.'?n='.($i).'">'. ($i + 1) .'-'. ($show_to) .'</a>] ';
 	}
-	$r .= '</p>';
+	$r .= '</p><div class="img-gallery">';
 
 	$count = -1;
   $r .= "<div class='img-gallery' style='width:100%'>";
@@ -189,7 +191,7 @@ function show_pictures($path, $currpath) {
 	}
   $r .= "</div>";
 
-	$r .= '<p>';
+	$r .= '</div><p>';
 	$max = count($dir);
 	for($i = 0; $i < $max; $i += $thumbs_per_page) {
 		$show_to = $i + $thumbs_per_page;
@@ -210,11 +212,11 @@ function show_breadcrumb($path) {
   global $BASE_URI;
 	$url = $BASE_URI.'/p/';
 	$parts = explode("/", $path);
-	$r = "<a href='$url'>PicView</a>";
-	
+	$r = "<li><a href='$url'>PicView</a></li>";
+
 	for($i = 1; $i < count($parts) - 1; $i++) {
 		$url .= $parts[$i] . '/';
-		$r .= " &#187; <a href='$url'>".$parts[$i]."</a>";
+		$r .= "<li><a href='$url'>".$parts[$i]."</a></li>";
 	}
 
 	return $r;

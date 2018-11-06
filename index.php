@@ -27,7 +27,7 @@ include('./functions.php');
    d = delete image cache
    p = show path (default)
 
-  Parameters:
+   Parameters:
    n = startindex of thumbnails
 */
 
@@ -221,85 +221,92 @@ if ($action === 't') {
     $next_pic = $dir[$key + 1] != '' ? str_replace($pictures_path, '', $curr_dir.$dir[$key + 1]) : '';
 
     $arr['content'] = '';
-    $arr['content'] .= '<style> @import url(/picview/css/picview_picture.css); </style>';
-    $arr['content'] .= <<<script
-<script src="/picview/css/jquery-2.1.4.min.js"></script>
-<script>
-var list = localStorage.highlightlist||"";
-$("body").keydown(function(e) {
-//console.log(e.which);
-if (e.which==37) location= $(".arrow.left").attr("href");
-else if (e.which==39) location= $(".arrow.right").attr("href");
-else if (e.which==32){
-  addName(location.pathname);
-  e.preventDefault();
-  return false;
-}
-});
-function addName(str) {
-list+=str+"\\n";
-localStorage.highlightlist=list;
-console.log(list);
-}
-</script>
-script;
-    $arr['content'] .= '<div>';
-    
+
+    // Show picture
+    $arr['content'] .= '<div class="carousel-inner" role="listbox">';
+    $arr['content'] .= '<div class="item active">';
+    //$arr['content'] .= '<div style="height:'.(($height ? $height : $medium_size)+15).'px;text-align:center;width:100%" class="mainImage">';
+    $arr['content'] .= '<a href="'.$BASE_URI.'/i'.$path.'">';
+    $arr['content'] .= '<img src="'.$BASE_URI.'/m'.$path.$no_cache_rand.'" border="0" />';
+    $arr['content'] .= '</a>';
+    $arr['content'] .= '</div></div>';
+
     // Previous Picture
     if ($prev_pic) {
-        $t_size = @getimagesize($thumbs_path.'/'.str_replace('/','_',$pictures_path.$prev_pic));
-        $t_size[0] = (int)($t_size[0] / 2);
-        $t_size[1] = (int)($t_size[1] / 2);
-        $arr['content'] .= '<a href="'.$BASE_URI.'/c'.$prev_pic.'?n='.$start.'#img" class="arrow left">';
-        $arr['content'] .= '&lt;</a>';
+        $arr['content'] .= '<a class="left carousel-control" href="'.$BASE_URI.'/c'.$prev_pic.'?n='.$start.'#img" role="button" data-slide="prev">';
+        $arr['content'] .= '<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>';
+        $arr['content'] .= '<span class="sr-only">Previous</span>';
+        $arr['content'] .= '</a>';
     }
 
     // Next Picture
     if ($next_pic) {
-        $arr['content'] .= '<a href="'.$BASE_URI.'/c'.$next_pic.'#img" class="arrow right">';
-        $arr['content'] .= '&gt;</a>';
+        $arr['content'] .= '<a class="right carousel-control" href="'.$BASE_URI.'/c'.$next_pic.'#img" role="button" data-slide="next">';
+        $arr['content'] .= '<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>';
+        $arr['content'] .= '<span class="sr-only">Next</span>';
+        $arr['content'] .= '</a>';
         // Preload next picture to browser cache
         $arr['content'] .= '<img src="'.$BASE_URI.'/m'.$next_pic.'" border="0" width="1" height="1" hspace="20" alt="" style="position:absolute" />';
     }
     //$arr['content'] .= '<br clear="all"><br>';
 
-    // Show picture
-    $arr['content'] .= '<div style="height:'.(($height ? $height : $medium_size)+15).'px;text-align:center;width:100%" class="mainImage">';
-    $arr['content'] .= '<a href="'.$BASE_URI.'/i'.$path.'">';
-    $arr['content'] .= '<img src="'.$BASE_URI.'/m'.$path.$no_cache_rand.'" border="0"  style="max-width:90%" />';
-    $arr['content'] .= '</a></div>';
-
     // Filename for comments to save to
     $save_name = $comments_path.'/'.str_replace('/','_',$path).'.txt';
 
-	if (file_exists($save_name)) {
-		$handle = fopen ($save_name,"r");
-		while ($data = fgetcsv ($handle, 5000, ",")) {
-			$arr['content'] .= '<div class="comment"><h4><b>'.stripslashes($data[0]).'</b> schrieb am '.date('d.m.Y', $data[2]).' um '.date('H:i', $data[2]).' folgendes:</h4>';
-			$arr['content'] .= stripslashes(nl2br($data[1])) . "</div>";
+		$arr['comments'] = '';
+
+		$arr['comments'] .= '<div class="row">';
+		$arr['comments'] .= '<div class="col-md-10 col-md-offset-2">';
+		if (file_exists($save_name)) {
+			$handle = fopen ($save_name,"r");
+			while ($data = fgetcsv ($handle, 5000, ",")) {
+				$arr['comments'] .= '<blockquote>';
+				$arr['comments'] .= '<p>' . stripslashes(nl2br($data[1])) . '</p>';
+				$arr['comments'] .= '<footer><b>'.stripslashes($data[0]).'</b>';
+				$arr['comments'] .= ' am <cite title="Datum">'.date('d.m.Y', $data[2]).'</cite>';
+				$arr['comments'] .= ' um <cite title="Uhrzeit">'.date('H:i', $data[2]).'</cite></footer>';
+				$arr['comments'] .= '</blockquote>';
+			}
+			fclose ($handle);
 		}
-		fclose ($handle);
-	}
+		$arr['comments'] .= '</div></div>';
 
     // Image functions
+    /*
     $arr['breadcrumb'] .= '<span style="float:right"><b>';
     $arr['breadcrumb'] .= '<a href="'.$BASE_URI.'/r'.$path.'">[ ⟳  Drehen im mathematisch negativen Sinn ]</a> ';
     $arr['breadcrumb'] .= '<a href="'.$BASE_URI.'/d'.$path.'">[ Bildansicht neu erzeugen ]</a> ';
     $arr['breadcrumb'] .= '</b></span>';
     $arr['breadcrumb'] .= '<b style="float:left; padding: 0 10px;"><a href="'.$BASE_URI.'/p'.preg_replace('!^(.*?/)[^/]+$!', '$1', $path).'?n='.$start.'">[ Zur &Uuml;bersicht ]</a></b>';
+    */
+
+    $arr['actions'] = '';
+    $arr['actions'] .= '<li><a href="'.$BASE_URI.'/r'.$path.'" title="Drehen im mathematisch negativen Sinn"><i class="fa fa-rotate-right"></i></a></li>';
+    $arr['actions'] .= '<li><a href="'.$BASE_URI.'/d'.$path.'" title="Bildansicht neu erzeugen"><i class="fa fa-window-restore"></i></a></li>';
 
     // Show comment form
-    $arr['content'] .= '<hr><form action="'.$BASE_URI.'/s'.$path.'" method="post" class="comment-form comment">';
+    $arr['comments'] .= '<form action="'.$BASE_URI.'/s'.$path.'" method="post" class="form-horizontal">';
+    $arr['comments'] .= '  <div class="form-group">';
+    $arr['comments'] .= '    <label for="input-name" class="col-sm-2 control-label">Name</label>';
+    $arr['comments'] .= '    <div class="col-sm-10">';
     if ($_SERVER["REMOTE_USER"] != '')
-        $arr['content'] .= 'Name: '.$_SERVER["REMOTE_USER"].'<br>';
+      $arr['comments'] .= '      <p class="form-control-static">'.$_SERVER["REMOTE_USER"].'</p>';
     else
-        $arr['content'] .= 'Name: <input type="text" name="name" size="50"><br>';
-    $arr['content'] .= 'Kommentar:<br>';
-    $arr['content'] .= '<textarea name="comment"></textarea><br>';
-    $arr['content'] .= '<input type="submit" value="Kommentar speichern">';
-    $arr['content'] .= '</form>';
-
-    $arr['content'] .= '</div>';
+      $arr['comments'] .= '      <input type="text" class="form-control" name="name" id="input-name" placeholder="Name">';
+    $arr['comments'] .= '    </div>';
+    $arr['comments'] .= '  </div>';
+    $arr['comments'] .= '  <div class="form-group">';
+    $arr['comments'] .= '    <label for="input-comment" class="col-sm-2 control-label">Kommentar</label>';
+    $arr['comments'] .= '    <div class="col-sm-10">';
+    $arr['comments'] .= '      <textarea class="form-control" name="comment" id="input-comment" placeholder="Kommentar"></textarea>';
+    $arr['comments'] .= '    </div>';
+    $arr['comments'] .= '  </div>';
+    $arr['comments'] .= '  <div class="form-group">';
+    $arr['comments'] .= '    <div class="col-sm-offset-2 col-sm-10">';
+    $arr['comments'] .= '      <input type="submit" value="Kommentar speichern" class="btn btn-default" />';
+    $arr['comments'] .= '    </div>';
+    $arr['comments'] .= '  </div>';
+    $arr['comments'] .= '</form>';
 
     $arr['breadcrumb'] .= show_breadcrumb($path);
 
@@ -335,7 +342,7 @@ script;
 		exit;
 	}
 	#echo $line;
-	Header('Location: '.$BASE_URI.'/c'.$path.'?r');
+	Header('Location: '.$BASE_URI.'/c'.$path.'?r#comments');
 } elseif ($action === 'r') {
 
 	if (!legal_image($pictures_path.$path, $pictures_path)) die('Zugriffsfehler');
@@ -374,9 +381,9 @@ script;
 } else {
 	$arr = Array();
 	$arr['pagetitle'] = $path;
-	$arr['navigation'] .= show_directory($pictures_path, $path);
-	$arr['content'] .= show_pictures($pictures_path, $path);
-	$arr['breadcrumb'] .= show_breadcrumb($path);
+	$arr['navigation'] = show_directory($pictures_path, $path);
+	$arr['content'] = show_pictures($pictures_path, $path);
+	$arr['breadcrumb'] = show_breadcrumb($path);
 	echo make_page($arr);
 }
 

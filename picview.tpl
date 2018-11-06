@@ -1,81 +1,94 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
+<!DOCTYPE html>
+<html>
 	<head>
 		<title>picView: %pagetitle% | D120.de</title>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 
-		<link rel="stylesheet" type="text/css" media="screen" href="https://www.fachschaft.informatik.tu-darmstadt.de/d120de/css/layout.css" />
-		<link rel="stylesheet" type="text/css" media="screen" href="https://www.fachschaft.informatik.tu-darmstadt.de/d120de/css/head.css" />
-		<link rel="stylesheet" type="text/css" media="print" href="https://www.fachschaft.informatik.tu-darmstadt.de/d120de/css/print.css" />
-		<link rel="stylesheet" type="text/css" href="https://www.fachschaft.informatik.tu-darmstadt.de/d120de/css/typography.css" />
-		<link rel="stylesheet" type="text/css" href="https://www.fachschaft.informatik.tu-darmstadt.de/d120de/css/form.css" />
-		<link rel="stylesheet" type="text/css" href="https://www.fachschaft.informatik.tu-darmstadt.de/d120de/css/picview_style.css" />
-		<link rel="stylesheet" type="text/css" href="https://www.fachschaft.informatik.tu-darmstadt.de/picview/css/justifiedGallery.min.css" />
-    <script src="https://www.fachschaft.informatik.tu-darmstadt.de/picview/css/jquery-2.1.4.min.js"></script>
-    <script src="https://www.fachschaft.informatik.tu-darmstadt.de/picview/css/jquery.justifiedGallery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="/picview/style/d120/node_modules/bootstrap/dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="/picview/style/d120/node_modules/font-awesome/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="/picview/style/d120/css/custom.css" />
+		<link rel="stylesheet" type="text/css" href="/picview/style/d120/css/tudesign.css" />
+		<link rel="stylesheet" type="text/css" href="/picview/css/justifiedGallery.min.css" />
+		<style>
+			#main {
+				min-height: calc(100vh - 326px);
+			}
+		</style>
 	</head>
-	<body>
-
-	<div id="Header">
-		<a href="https://www.fachschaft.informatik.tu-darmstadt.de/das-wesen"><img src="https://www.fachschaft.informatik.tu-darmstadt.de/d120de/images/das-wesen-der-informatik.png" id="wesen" title="Das Wesen der Informatik" alt="Das Wesen der Informatik"></a>
-		<a href="http://www.tu-darmstadt.de/"><img src="https://www.fachschaft.informatik.tu-darmstadt.de/d120de/images/athene.png" alt="Athene der TU Darmstadt" title="Athene der TU Darmstadt" id="athene"></a>
-		<h1>Fachschaft Informatik</h1>
-		<h2>picView: %pagetitle%</h2>
-	</div>
-
-	<div id="Subheader">
-		<ul id="Menu1">
-			  <li class="current"><a href="http://www.d120.de/startseite/">Startseite</a></li>
-			  <li class="link"><a href="http://daswesentliche.d120.de/">das Wesentliche</a></li>
-
-			  <li class="link"><a href="http://www.d120.de/forum/">Forum</a></li>
-		</ul>
-		<div id="MenuSpacerLeft"></div>
-		<div id="MenuSpacerRight"></div>
-
-		<ul id="Submenu">
-			  <li class="current"><a href="https://www.fachschaft.informatik.tu-darmstadt.de/fachschaft/" title="Gehe zur Seite &quot;Fachschaft&quot;">Fachschaft</a></li>
-			  <li class="link"><a href="https://www.fachschaft.informatik.tu-darmstadt.de/studenten/" title="Gehe zur Seite &quot;Studenten&quot;">Studenten</a></li>
-			  <li class="link"><a href="https://www.fachschaft.informatik.tu-darmstadt.de/schueler/" title="Gehe zur Seite &quot;Schüler&quot;">Schüler</a></li>
-			  <li class="link"><a href="https://www.fachschaft.informatik.tu-darmstadt.de/dozenten/" title="Gehe zur Seite &quot;Dozenten&quot;">Dozenten</a></li>
-			  <li class="link"><a href="https://www.fachschaft.informatik.tu-darmstadt.de/firmen/" title="Gehe zur Seite &quot;Firmen&quot;">Firmen</a></li>
-		</ul>
-
-	</div>
-
-	<div id="ContentContainer">
-		<div id="leftSidebar">
-			<ul class="leftSidebarBox" id="Menu2">
-				%navigation%
-			</ul>
+	<body class="tud-theme-defs tud-theme-4c">
+		<div class="container" id="header">
+		    <a href="https://www.fachschaft.informatik.tu-darmstadt.de">
+					<img src="/picview/style/d120/img/d120_logo.png" id="mainLogo" alt="D120: Fachschaft Informatik" class="tud-theme-filled pull-left">
+				</a>
+		    <a href="https://www.tu-darmstadt.de" id="responsivelogo"><img src="/picview/style/d120/img/tu_da_logo.png" alt="Technische Universität Darmstadt" class="pull-right"></a>
 		</div>
 
+		<nav id="service-navbar" class="navbar navbar-default tud-theme-filled">
+		    <div class="container">
+		        <ul class="header-navbar pull-right nav navbar-nav">
+		            <li class="active"><a href="https://www.fachschaft.informatik.tu-darmstadt.de"><i class="fa fa-home fa-lg"></i> <span class="hidden-xs">Webseite</span></a></li>
+		            <li><a href="https://daswesentliche.fachschaft.informatik.tu-darmstadt.de"><i class="fa fa-newspaper-o fa-lg"></i> <span class="hidden-xs">dasWESENtliche</span></a></li>
+		            <li><a href="https://www.fachschaft.informatik.tu-darmstadt.de/forum"><i class="fa fa-comments-o fa-lg"></i> <span class="hidden-xs">Forum</span></a></li>
+		            <li><a href="https://www.informatik.tu-darmstadt.de"><i class="fa fa-university fa-lg"></i> <span class="hidden-xs">Fachbereich</span></a></li>
+		        </ul>
+		    </div>
+		</nav>
 
-		<div id="Content" class="typography">
-			<div class="breadcrumbs">
-				Du bist hier: <a href="https://www.fachschaft.informatik.tu-darmstadt.de/fachschaft/">Fachschaft</a> &raquo; %breadcrumb%
-			</div>
-			<div id="Layout">
-			    <div class="picviewHeadline">
-				<h1>%pagetitle%</h1>
-		            </div>
-			    %content%
+		<div class="container">
+			<div id="main" class="row">
+				<div class="col-lg-3 col-md-4 col-sm-5">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar" aria-expanded="false" aria-controls="sidebar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<ul id="sidebar" class="nav sidebar-nav navbar-collapse collapse tud-theme-colored">
+						%navigation%
+					</ul>
+				</div>
+				<div id="content" class="col-lg-9 col-md-8 col-xs-12 col-sm-7">
+
+					<!--<h2>picView: %pagetitle%</h2>-->
+					<ol class="breadcrumb">
+						%breadcrumb%
+					</ol>
+
+					<div id="gallery">
+						%content%
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-
-	<div id="Footer">
-		<div class="Footer_wesen">
-			<img src="https://www.fachschaft.informatik.tu-darmstadt.de/d120de/images/das-wesen-der-informatik_unten.png" alt="Das Wesen der Informatik">
-		</div>
-
-		<p>2010 Fachschaft Informatik der Technischen Universität Darmstadt<br />
-	   		<a href="https://www.fachschaft.informatik.tu-darmstadt.de/kontakt">Kontakt</a> &bull;
-	   		<a href="https://www.fachschaft.informatik.tu-darmstadt.de/impressum">Impressum</a>
-	   	</p>
-
-	</div>
-	<script> $(".img-gallery").justifiedGallery({ rowHeight: 150 }); </script>
+		<footer class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3">
+						<p><a href="https://www.fachschaft.informatik.tu-darmstadt.de">Startseite</a></p>
+						<p><a href="https://www.fachschaft.informatik.tu-darmstadt.de/kontakt">Kontakt</a></p>
+						<p><a href="https://www.fachschaft.informatik.tu-darmstadt.de/impressum">Impressum</a></p>
+					</div>
+					<div class="col-md-4">
+						<p><a href="https://www.openstreetmap.org/node/3893358897#map=17/49.87747639417648/8.654630184173584"><i class="fa fa-map-marker"></i>Hochschulstraße 10, 64289 Darmstadt</a></p>
+						<p><a href="tel:+49615116-25522"><i class="fa fa-phone"></i>+49 6151 16-25522</a></p>
+						<p><a href="mailto:wir@d120.de"><i class="fa fa-envelope"></i>wir@d120.de</a></p>
+					</div>
+					<div class="col-md-1">
+						<p><a href="https://www.facebook.com/d120.de" aria-label="Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true" title="Facebook"></i></a></p>
+						<p><a href="https://twitter.com/d120de" aria-label="Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true" title="Twitter"></i></a></p>
+						<p><a href="https://github.com/d120" aria-label="Github"><i class="fa fa-fw fa-github" aria-hidden="true" title="Github"></i></a></p>
+					</div>
+					<div class="col-md-4 bottom-align-text" id="copyright">
+						<p>© Fachschaft Informatik TU Darmstadt</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<script src="/picview/css/jquery-2.1.4.min.js"></script>
+		<script src="/picview/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="/picview/css/jquery.justifiedGallery.min.js"></script>
+		<script>
+			$('.img-gallery').justifiedGallery();
+		</script>
 	</body>
 </html>
