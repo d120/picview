@@ -113,14 +113,14 @@
 				right = $(".carousel-control.right").attr("href");
 				if (e.which==37 && left) location=left;
 				else if (e.which==39 && right) location=right;
-				/*else if (e.which==32) {
+				else if (e.which==32) {
 					addName(location.pathname);
 					e.preventDefault();
 					return false;
-				}*/
+				}
 			});
 			function addName(str) {
-				list+=str+"\\n";
+				list+=str+"\n";
 				localStorage.highlightlist=list;
 				console.log(list);
 			}

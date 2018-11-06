@@ -14,7 +14,7 @@
 			}
 		</style>
 	</head>
-	<body class="tud-theme-defs tud-theme-4c">
+	<body class="tud-theme-defs tud-theme-7b">
 		<div class="container" id="header">
 		    <a href="https://www.fachschaft.informatik.tu-darmstadt.de">
 					<img src="%base_uri%/style/d120/img/d120_logo.png" id="mainLogo" alt="D120: Fachschaft Informatik" class="tud-theme-filled pull-left">
