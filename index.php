@@ -355,7 +355,7 @@ if ($action === 't') {
 	header("Content-Type: application/json");
 	echo json_encode([
 		"files" => get_dir($pictures_path, $path, 'f'),
-		"dirs" => get_dir($pictures_path, $path, 'f')
+		"dirs" => get_dir($pictures_path, $path, 'd')
 	]);
 
 } else {
