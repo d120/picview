@@ -11,6 +11,9 @@
 		<link rel="stylesheet" type="text/css" href="https://www.fachschaft.informatik.tu-darmstadt.de/d120de/css/typography.css" />
 		<link rel="stylesheet" type="text/css" href="https://www.fachschaft.informatik.tu-darmstadt.de/d120de/css/form.css" />
 		<link rel="stylesheet" type="text/css" href="https://www.fachschaft.informatik.tu-darmstadt.de/d120de/css/picview_style.css" />
+		<link rel="stylesheet" type="text/css" href="https://www.fachschaft.informatik.tu-darmstadt.de/picview/css/justifiedGallery.min.css" />
+    <script src="https://www.fachschaft.informatik.tu-darmstadt.de/picview/css/jquery-2.1.4.min.js"></script>
+    <script src="https://www.fachschaft.informatik.tu-darmstadt.de/picview/css/jquery.justifiedGallery.min.js"></script>
 	</head>
 	<body>
 
@@ -73,6 +76,6 @@
 	   	</p>
 
 	</div>
-		
+	<script> $(".img-gallery").justifiedGallery({ rowHeight: 150 }); </script>
 	</body>
 </html>

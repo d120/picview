@@ -115,7 +115,7 @@ function show_pictures($path, $currpath) {
 				$count2 = 0;
 				$r .= '<a href="'.$BASE_URI.'/p'.$currpath.$_d.'/'.'">';
 				$r .= "<h2>{$currpath}{$d}</h2>";
-				$r .= "</a>\n";
+				$r .= "</a>\n<div class='img-gallery' style='width:100%'>";
 				foreach($s_d as $s) {
 					if ($count2++ > 5) break;
 					$d = $_d.'/'.$s;
@@ -141,7 +141,7 @@ function show_pictures($path, $currpath) {
 
 
 				}
-				$r .= '<a href="'.$BASE_URI.'/p/'.$currpath.$_d.'/'.'">';
+				$r .= '</div><a href="'.$BASE_URI.'/p/'.$currpath.$_d.'/'.'">';
 				$r .= 'Mehr...';
 				$r .= "</a>\n";
 			}
@@ -163,6 +163,7 @@ function show_pictures($path, $currpath) {
 	$r .= '</p>';
 
 	$count = -1;
+  $r .= "<div class='img-gallery' style='width:100%'>";
 	foreach($dir as $d) {
 		$count++;
 		if ($count < $start || $count > $start + $thumbs_per_page) continue;
@@ -186,6 +187,7 @@ function show_pictures($path, $currpath) {
 		$r .= '<img title="'.$number_comments.' Kommentare" src="'.$BASE_URI.'/t/'.$currpath.'/'.$d.'?comments='.$number_comments.'" '.$size[3].' class="img'. ($size[0] < $size[1] ? 'h' : 'v') .'" />';
 		$r .= "</a>\n";
 	}
+  $r .= "</div>";
 
 	$r .= '<p>';
 	$max = count($dir);
