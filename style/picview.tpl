@@ -7,7 +7,7 @@
 		<link rel="stylesheet" type="text/css" href="%base_uri%/style/d120/node_modules/font-awesome/css/font-awesome.min.css" />
 		<link rel="stylesheet" type="text/css" href="%base_uri%/style/d120/css/custom.css" />
 		<link rel="stylesheet" type="text/css" href="%base_uri%/style/d120/css/tudesign.css" />
-		<link rel="stylesheet" type="text/css" href="%base_uri%/css/justifiedGallery.min.css" />
+		<link rel="stylesheet" type="text/css" href="%base_uri%/style/justifiedGallery.min.css" />
 		<style>
 			#main {
 				min-height: calc(100vh - 326px);
@@ -83,9 +83,9 @@
 				</div>
 			</div>
 		</footer>
-		<script src="%base_uri%/css/jquery-2.1.4.min.js"></script>
+		<script src="%base_uri%/style/jquery-2.1.4.min.js"></script>
 		<script src="%base_uri%/style/d120/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-		<script src="%base_uri%/css/jquery.justifiedGallery.min.js"></script>
+		<script src="%base_uri%/style/jquery.justifiedGallery.min.js"></script>
 		<script>
 			$('.img-gallery').justifiedGallery();
 		</script>

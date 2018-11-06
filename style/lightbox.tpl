@@ -103,7 +103,7 @@
 				</div>
 			</div>
 		</footer>
-		<script src="%base_uri%/css/jquery-2.1.4.min.js"></script>
+		<script src="%base_uri%/style/jquery-2.1.4.min.js"></script>
 		<script src="%base_uri%/style/d120/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script>
 			var list = localStorage.highlightlist||"";
