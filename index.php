@@ -80,13 +80,8 @@ if ($action === 't') {
 		$width	= $size[0]*$h/$size[1];
 		$height = $h;
 
-		if (function_exists('imagecreatetruecolor')) {
-			$new_image = imagecreatetruecolor($width, $height);
-			imagecopyresampled($new_image, $im, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
-		} else {
-			$new_image = imagecreate($width, $height);
-			imagecopyresized($new_image, $im, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
-		}
+		$new_image = imagecreatetruecolor($width, $height); imagefill($new_image, 0, 0, $background_color);
+		imagecopyresampled($new_image, $im, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
 
 		// Save thumbnail to file
 		if (is_writable($save_name) || !file_exists($save_name)) {
@@ -131,7 +126,7 @@ if ($action === 't') {
 			$im = @ImageCreateFromJPEG($pictures_path.$path) or die ("Kann keinen neuen GD-Bild-Stream erzeugen (JPEG)");
 
 		$size = GetImageSize ($pictures_path.$path);
-		$background_color = ImageColorAllocate ($im, 255, 255, 255);
+		$background_color = ImageColorAllocate ($im, 51,51,51);
 
 		$h = $medium_size;
 		if ($size[0] < $size[1]) {
@@ -142,13 +137,8 @@ if ($action === 't') {
 			$height = $size[1]*$h/$size[0];
 		}
 
-		if (function_exists('imagecreatetruecolor')) {
-			$new_image = imagecreatetruecolor($width, $height);
-			imagecopyresampled($new_image, $im, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
-		} else {
-			$new_image = imagecreate($width, $height);
-			imagecopyresized($new_image, $im, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
-		}
+		$new_image = imagecreatetruecolor($width, $height); imagefill($new_image, 0, 0, $background_color);
+		imagecopyresampled($new_image, $im, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
 
 		// Save thumbnail to file
 		if (is_writable($save_name) || !file_exists($save_name)) {
