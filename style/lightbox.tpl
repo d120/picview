@@ -9,57 +9,57 @@
 		<link rel="stylesheet" type="text/css" href="%base_uri%/style/d120/css/custom.css" />
 		<link rel="stylesheet" type="text/css" href="%base_uri%/style/d120/css/tudesign.css" />
 		<style>
-			#main {
-				min-height: 100vh;
-				background-color: #333;
-				/*padding-top: 54px;*/
-			}
+		#main {
+			min-height: 100vh;
+			background-color: #333;
+			/*padding-top: 54px;*/
+		}
 
-			.carousel-inner {
-				display: flex;
-			  align-items: center;
-			  justify-content: center;
-				position: absolute;
-				height: 100%;
-			}
+		.carousel-inner {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: absolute;
+			height: 100%;
+		}
 
-			#navbar {
-				background-color: #000;
-				color: #eee;
-				line-height: 25px;
-			}
+		#navbar {
+			background-color: #000;
+			color: #eee;
+			line-height: 25px;
+		}
 
-			#navbar a:hover, #navbar a:focus {
-				color: #aaa;
-			}
+		#navbar a:hover, #navbar a:focus {
+			color: #aaa;
+		}
 
-			#comments {
-				padding: 6rem 0;
-				/*padding-top: 54px;*/
-			}
+		#comments {
+			padding: 6rem 0;
+			/*padding-top: 54px;*/
+		}
 
-			#comments footer {
-				background-color: transparent;
-			}
+		#comments footer {
+			background-color: transparent;
+		}
 		</style>
 	</head>
 	<body class="tud-theme-defs tud-theme-4c">
 
 		<nav id="navbar" class="navbar navbar-default navbar-fixed-top navbar-fix">
 			<div class="container-fluid">
-		    <!-- Brand and toggle get grouped for better mobile display -->
-		    <div class="navbar-header">
-		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-		        <span class="sr-only">Toggle navigation</span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		      </button>
-		      <a href="/picview" class="navbar-brand">picView</a>
-		    </div>
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a href="/picview" class="navbar-brand">picView</a>
+				</div>
 
-		    <!-- Collect the nav links, forms, and other content for toggling -->
-		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<div class="navbar-header">
 						<div class="nav navbar-text">
 							<ol class="breadcrumb" style="margin-bottom: 0;">
@@ -108,7 +108,6 @@
 		<script>
 			var list = localStorage.highlightlist||"";
 			$("body").keydown(function(e) {
-				//console.log(e.which);
 				left = $(".carousel-control.left").attr("href");
 				right = $(".carousel-control.right").attr("href");
 				if (e.which==37 && left) location=left;

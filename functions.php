@@ -1,72 +1,72 @@
 <?php
 # # # # # # # # # # # # # # # # # # # # # # # # #
-#           _    __     ___                     #
-#     _ __ (_) __\ \   / (_) _____      __      #
-#    | '_ \| |/ __\ \ / /| |/ _ \ \ /\ / /      #
-#    | |_) | | (__ \ V / | |  __/\ V  V /       #
-#    | .__/|_|\___| \_/  |_|\___| \_/\_/        #
-#    |_| picView Version 0.4.20061212           #
-#                                               #
-# This is GPL.                                  #
-# Visit http://scripte.arnep.de                 #
+#						_		 __			___											#
+#			_ __ (_) __\ \	 / (_) _____			__			#
+#		 | '_ \| |/ __\ \ / /| |/ _ \ \ /\ / /			#
+#		 | |_) | | (__ \ V / | |	__/\ V	V /				#
+#		 | .__/|_|\___| \_/  |_|\___| \_/\_/				#
+#		 |_| picView Version 0.4.20061212						#
+#																								#
+# This is GPL.																	#
+# Visit http://scripte.arnep.de									#
 # # # # # # # # # # # # # # # # # # # # # # # # #
 
 
 function bind_user($user,$pw){
-global $ds;
-  open_ldap_connection();
-  $user = strtolower(trim($user));
-  $userDN = get_user_dn($user);
-  $ok = ldap_bind($ds, $userDN, $pw);
-  if ($ok) $GLOBALS["boundUserDN"] = $userDN; else $GLOBALS["boundUserDN"] = FALSE;
-  return $ok;
+	global $ds;
+	open_ldap_connection();
+	$user = strtolower(trim($user));
+	$userDN = get_user_dn($user);
+	$ok = ldap_bind($ds, $userDN, $pw);
+	if ($ok) $GLOBALS["boundUserDN"] = $userDN; else $GLOBALS["boundUserDN"] = FALSE;
+	return $ok;
 }
 
 function get_user_dn($username) {
-global $peopleBase;
-  return "uid=$username,$peopleBase";
+	global $peopleBase;
+	return "uid=$username,$peopleBase";
 }
 
 function open_ldap_connection() {
-  global $ds, $ldapHost;
-  if ($ds) return;
-  $ds=ldap_connect($ldapHost);
-  define('LDAP_OPT_DIAGNOSTIC_MESSAGE', 0x0032);
-  ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
+	global $ds, $ldapHost;
+	if ($ds) return;
+	$ds=ldap_connect($ldapHost);
+	define('LDAP_OPT_DIAGNOSTIC_MESSAGE', 0x0032);
+	ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
 }
 function send_basicauth_header($realm) {
-  header("WWW-Authenticate: Basic realm=\"$realm\"");
-  header("HTTP/1.1 401 Unauthorized");
+	header("WWW-Authenticate: Basic realm=\"$realm\"");
+	header("HTTP/1.1 401 Unauthorized");
 }
 function check_basicauth() {
-  global $galleryConfig;
-  switch($galleryConfig['auth_required']) {
-    case 'ldap':
-      if ($_SERVER["PHP_AUTH_USER"] && $_SERVER["PHP_AUTH_PW"]) {
-        if (bind_user($_SERVER["PHP_AUTH_USER"],  $_SERVER["PHP_AUTH_PW"])) return true;
-      }
-      send_basicauth_header("Please authenticate for $galleryConfig[title] with your LDAP account");
-      return FALSE;
-    case 'password':
-      if ($_SERVER["PHP_AUTH_USER"] && $_SERVER["PHP_AUTH_PW"]) {
-        //$correctPwHash = $galleryConfig['password'][$_SERVER["PHP_AUTH_USER"]];
-        //if (crypt($_SERVER["PHP_AUTH_PW"], $correctPwHash) === $correctPwHash) return true;
-        $correctPw = $galleryConfig['password'][$_SERVER["PHP_AUTH_USER"]];
-        if ($correctPw === $_SERVER["PHP_AUTH_PW"]) return true;
-      }
-      send_basicauth_header("Please authenticate for $galleryConfig[title] with the given username and password");
-      return FALSE;
-    case '':
-      return TRUE;
-    default:
-      die("Invalid Configuration");
-  }
+	global $galleryConfig;
+	switch($galleryConfig['auth_required']) {
+		case 'ldap':
+			if ($_SERVER["PHP_AUTH_USER"] && $_SERVER["PHP_AUTH_PW"]) {
+				if (bind_user($_SERVER["PHP_AUTH_USER"],	$_SERVER["PHP_AUTH_PW"])) return true;
+			}
+			send_basicauth_header("Please authenticate for $galleryConfig[title] with your LDAP account");
+			return FALSE;
+		case 'password':
+			if ($_SERVER["PHP_AUTH_USER"] && $_SERVER["PHP_AUTH_PW"]) {
+				//$correctPwHash = $galleryConfig['password'][$_SERVER["PHP_AUTH_USER"]];
+				//if (crypt($_SERVER["PHP_AUTH_PW"], $correctPwHash) === $correctPwHash) return true;
+				$correctPw = $galleryConfig['password'][$_SERVER["PHP_AUTH_USER"]];
+				if ($correctPw === $_SERVER["PHP_AUTH_PW"]) return true;
+			}
+			send_basicauth_header("Please authenticate for $galleryConfig[title] with the given username and password");
+			return FALSE;
+		case '':
+			return TRUE;
+		default:
+			die("Invalid Configuration");
+	}
 }
 function require_basicauth() {
-  if (!check_basicauth()) {
-    echo "<div class='alert alert-danger'><h4>Please authenticate </h4>\n</div>";
-    exit;
-  }
+	if (!check_basicauth()) {
+		echo "<div class='alert alert-danger'><h4>Please authenticate </h4>\n</div>";
+		exit;
+	}
 }
 
 function show_directory($path, $currpath) {
@@ -135,7 +135,7 @@ function show_pictures($path, $currpath) {
 					$save_name = $thumbs_path.'/'.str_replace('/','_',$path.$currpath.$d);
 					$size = @getimagesize($save_name);
 					$size[3] = $size[3];
-			#		print_r($size);
+					#print_r($size);
 
 					$r .= '<a href="'.$BASE_URI.'/c'.$currpath.$d.'">';
 					$r .= '<img title="'.$number_comments.' Kommentare" src="'.$BASE_URI.'/t'.$currpath.$d.'?comments='.$number_comments.'" '.$size[3].' class="img'. ($size[0] < $size[1] ? 'h' : 'v') .'" />';
@@ -165,7 +165,7 @@ function show_pictures($path, $currpath) {
 	$r .= '</p>';
 
 	$count = -1;
-  $r .= "<div class='img-gallery' style='width:100%'>";
+	$r .= "<div class='img-gallery' style='width:100%'>";
 	foreach($dir as $d) {
 		$count++;
 		if ($count < $start || $count > $start + $thumbs_per_page) continue;
@@ -183,13 +183,13 @@ function show_pictures($path, $currpath) {
 		$save_name = $thumbs_path.'/'.str_replace('/','_',$path.$currpath.$d);
 		$size = @getimagesize($save_name);
 		$size[3] = $size[3];
-#		print_r($size);
+		#print_r($size);
 
 		$r .= '<a href="'.$BASE_URI.'/c/'.$currpath.'/'.$d.'?n='.$start.'">';
 		$r .= '<img title="'.$number_comments.' Kommentare" src="'.$BASE_URI.'/t/'.$currpath.'/'.$d.'?comments='.$number_comments.'" '.$size[3].' class="img'. ($size[0] < $size[1] ? 'h' : 'v') .'" />';
 		$r .= "</a>\n";
 	}
-  $r .= "</div>";
+	$r .= "</div>";
 
 	$r .= '<p>';
 	$max = count($dir);
@@ -209,7 +209,7 @@ function show_pictures($path, $currpath) {
 } // show_pictures()
 
 function show_breadcrumb($path) {
-  global $BASE_URI;
+	global $BASE_URI;
 	$url = $BASE_URI.'/p/';
 	$parts = explode("/", $path);
 	$r = "<li><a href='$url'>PicView</a></li>";
@@ -239,7 +239,7 @@ function legal_image($img, $path) {
 	// Picture does not exist
 	if (!file_exists($realpath)) return FALSE;
 
-    // default
+	// default
 	return TRUE;
 } // legal_image()
 
@@ -262,15 +262,12 @@ function make_page($tpl_filename, $vars) {
 	return $template;
 }
 
-
-
 function make_basedir() {
-  global $BASE_URI;
-  $base = dirname(dirname($BASE_URI));
-  if ($base == '/') return "/";
-  return $base;
+	global $BASE_URI;
+	$base = dirname(dirname($BASE_URI));
+	if ($base == '/') return "/";
+	return $base;
 }
-
 
 // $imgSrc - GD image handle of source image 
 // $angle - angle of rotation. Needs to be positive integer 
@@ -278,42 +275,41 @@ function make_basedir() {
 // will be rouned to nearest right angle (i.e. 52->90 degs, 
 // 96->90 degs) 
 // returns GD image handle of rotated image. 
-function ImageRotate_PV( $imagePath, $angle ) 
-{ 
+function ImageRotate_PV( $imagePath, $angle ) {
 
 	$imgSrc=ImageCreateFromJPEG($imagePath);
 
-   // ensuring we got really RightAngle (if not we choose the closest one) 
-   $angle = min( ( (int)(($angle+45) / 90) * 90), 270 ); 
+	 // ensuring we got really RightAngle (if not we choose the closest one) 
+	 $angle = min( ( (int)(($angle+45) / 90) * 90), 270 ); 
 
-   // no need to fight 
-   if( $angle == 0 ) 
-       return;
+	 // no need to fight 
+	 if( $angle == 0 ) 
+			 return;
 
-   // dimenstion of source image 
-   $srcX = imagesx( $imgSrc ); 
-   $srcY = imagesy( $imgSrc ); 
+	 // dimenstion of source image 
+	 $srcX = imagesx( $imgSrc ); 
+	 $srcY = imagesy( $imgSrc ); 
 
-   switch( $angle ) 
-       { 
-       case 90: 
-           $imgDest = imagecreatetruecolor( $srcY, $srcX ); 
-           for( $x=0; $x<$srcX; $x++ ) 
-               for( $y=0; $y<$srcY; $y++ ) 
-                   imagecopy($imgDest, $imgSrc, $srcY-$y-1, $x, $x, $y, 1, 1); 
-           break; 
+	 switch( $angle ) 
+			 { 
+			 case 90: 
+					 $imgDest = imagecreatetruecolor( $srcY, $srcX ); 
+					 for( $x=0; $x<$srcX; $x++ ) 
+							 for( $y=0; $y<$srcY; $y++ ) 
+									 imagecopy($imgDest, $imgSrc, $srcY-$y-1, $x, $x, $y, 1, 1); 
+					 break; 
 
-       case 180: 
-           $imgDest = ImageFlip( $imgSrc, IMAGE_FLIP_BOTH ); 
-           break; 
+			 case 180: 
+					 $imgDest = ImageFlip( $imgSrc, IMAGE_FLIP_BOTH ); 
+					 break; 
 
-       case 270: 
-           $imgDest = imagecreatetruecolor( $srcY, $srcX ); 
-           for( $x=0; $x<$srcX; $x++ ) 
-               for( $y=0; $y<$srcY; $y++ ) 
-                   imagecopy($imgDest, $imgSrc, $y, $srcX-$x-1, $x, $y, 1, 1); 
-           break; 
-       } 
+			 case 270: 
+					 $imgDest = imagecreatetruecolor( $srcY, $srcX ); 
+					 for( $x=0; $x<$srcX; $x++ ) 
+							 for( $y=0; $y<$srcY; $y++ ) 
+									 imagecopy($imgDest, $imgSrc, $y, $srcX-$x-1, $x, $y, 1, 1); 
+					 break; 
+			 } 
 
 	ImageDestroy($imgSrc);
 #	ImageInterlace($imgDest, 0);
@@ -322,9 +318,7 @@ function ImageRotate_PV( $imagePath, $angle )
 }
 
 function quickRotate($imagePath,$angle){
-exec('contert -rotate 90 /home/arnep/tmp/test.jpg /home/arnep/tmp/bla.jpg');
-
-	if(!preg_match("/\.(png|jpg|jpeg|gif)$/i", $imagePath)) die('die h4X0r die!');
+	if(!preg_match("/\.(png|jpg|jpeg|gif)$/i", $imagePath)) die('invalid file extension');
 	exec("convert -rotate $angle $imagePath $imagePath");
 	return;
 
@@ -341,36 +335,36 @@ exec('contert -rotate 90 /home/arnep/tmp/test.jpg /home/arnep/tmp/bla.jpg');
 	 $t=0;
 	 $b=$size[1]-1;
 	 while($t<=$b){
-	   $l=0;
-	   $r=$size[0]-1;
-	   while($l<=$r){
-	       imagecopy($dst_img,$src_img,$t,$r,$r,$b,1,1);
-	       imagecopy($dst_img,$src_img,$t,$l,$l,$b,1,1);
-	       imagecopy($dst_img,$src_img,$b,$r,$r,$t,1,1);
-	       imagecopy($dst_img,$src_img,$b,$l,$l,$t,1,1);
-	       $l++;
-	       $r--;
-	   }
-	   $t++;
-	   $b--;
+		 $l=0;
+		 $r=$size[0]-1;
+		 while($l<=$r){
+				 imagecopy($dst_img,$src_img,$t,$r,$r,$b,1,1);
+				 imagecopy($dst_img,$src_img,$t,$l,$l,$b,1,1);
+				 imagecopy($dst_img,$src_img,$b,$r,$r,$t,1,1);
+				 imagecopy($dst_img,$src_img,$b,$l,$l,$t,1,1);
+				 $l++;
+				 $r--;
+		 }
+		 $t++;
+		 $b--;
 	 }
 	}
 	elseif($rtt==-90){
 	 $t=0;
 	 $b=$size[1]-1;
 	 while($t<=$b){
-	   $l=0;
-	   $r=$size[0]-1;
-	   while($l<=$r){
-	       imagecopy($dst_img,$src_img,$t,$l,$r,$t,1,1);
-	       imagecopy($dst_img,$src_img,$t,$r,$l,$t,1,1);
-	       imagecopy($dst_img,$src_img,$b,$l,$r,$b,1,1);
-	       imagecopy($dst_img,$src_img,$b,$r,$l,$b,1,1);
-	       $l++;
-	       $r--;
-	   }
-	   $t++;
-	   $b--;
+		 $l=0;
+		 $r=$size[0]-1;
+		 while($l<=$r){
+				 imagecopy($dst_img,$src_img,$t,$l,$r,$t,1,1);
+				 imagecopy($dst_img,$src_img,$t,$r,$l,$t,1,1);
+				 imagecopy($dst_img,$src_img,$b,$l,$r,$b,1,1);
+				 imagecopy($dst_img,$src_img,$b,$r,$l,$b,1,1);
+				 $l++;
+				 $r--;
+		 }
+		 $t++;
+		 $b--;
 	 }
 	}
 	

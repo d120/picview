@@ -1,14 +1,14 @@
 <?php
 # # # # # # # # # # # # # # # # # # # # # # # # #
-#           _    __     ___                     #
-#     _ __ (_) __\ \   / (_) _____      __      #
-#    | '_ \| |/ __\ \ / /| |/ _ \ \ /\ / /      #
-#    | |_) | | (__ \ V / | |  __/\ V  V /       #
-#    | .__/|_|\___| \_/  |_|\___| \_/\_/        #
-#    |_| picView Version 0.4.20061213           #
-#                                               #
-# This is GPL.                                  #
-# Visit http://scripte.arnep.de                 #
+#						_		 __			___											#
+#			_ __ (_) __\ \	 / (_) _____			__			#
+#		 | '_ \| |/ __\ \ / /| |/ _ \ \ /\ / /			#
+#		 | |_) | | (__ \ V / | |	__/\ V	V /				#
+#		 | .__/|_|\___| \_/  |_|\___| \_/\_/				#
+#		 |_| picView Version 0.4.20061213						#
+#																								#
+# This is GPL.																	#
+# Visit http://scripte.arnep.de									#
 # # # # # # # # # # # # # # # # # # # # # # # # #
 
 error_reporting(E_ALL);
@@ -17,26 +17,26 @@ include('./config.php');
 include('./functions.php');
 
 /**
-  Actions:
-   t = thumbnail size
-   m = medium size
-   i = original size
-   c = comment
-   s = save comment
-   r = rotate
-   d = delete image cache
-   p = show path (default)
+	Actions:
+	 t = thumbnail size
+	 m = medium size
+	 i = original size
+	 c = comment
+	 s = save comment
+	 r = rotate
+	 d = delete image cache
+	 p = show path (default)
 
-   Parameters:
-   n = startindex of thumbnails
+	 Parameters:
+	 n = startindex of thumbnails
 */
 
 if (isset($_SERVER['PATH_INFO'])) {
 	list(, $galleryId, $action, $path)=explode('/',$_SERVER['PATH_INFO'],4);
 } else {
 	$path='';
-  $action = '';
-  $galleryId = 'picview';
+	$action = '';
+	$galleryId = 'picview';
 }
 $galleryConfig = $galleries[$galleryId];
 $pictures_path = $galleryConfig['pictures_path'];
@@ -77,7 +77,7 @@ if ($action === 't') {
 		$background_color = ImageColorAllocate ($im, 255, 255, 255);
 
 		$h = $thumb_size;
-		$width  = $size[0]*$h/$size[1];
+		$width	= $size[0]*$h/$size[1];
 		$height = $h;
 
 		if (function_exists('imagecreatetruecolor')) {
@@ -92,7 +92,7 @@ if ($action === 't') {
 		if (is_writable($save_name) || !file_exists($save_name)) {
 			ImageJPEG($new_image, $save_name, 90);
 		} else {
-		   print "Die Datei $save_name ist nicht schreibbar";
+			 print "Die Datei $save_name ist nicht schreibbar";
 		}
 
 	}
@@ -135,11 +135,11 @@ if ($action === 't') {
 
 		$h = $medium_size;
 		if ($size[0] < $size[1]) {
-			$width  = $size[0]*$h/$size[1];
+			$width	= $size[0]*$h/$size[1];
 			$height = $h;
 		} else {
-	        $width  = $h;
-	        $height = $size[1]*$h/$size[0];
+			$width	= $h;
+			$height = $size[1]*$h/$size[0];
 		}
 
 		if (function_exists('imagecreatetruecolor')) {
@@ -154,7 +154,7 @@ if ($action === 't') {
 		if (is_writable($save_name) || !file_exists($save_name)) {
 			ImageJPEG($new_image, $save_name, 90);
 		} else {
-		   print "Die Datei $save_name ist nicht schreibbar";
+			 print "Die Datei $save_name ist nicht schreibbar";
 		}
 	}
 
@@ -170,147 +170,147 @@ if ($action === 't') {
 
 	if (!legal_image($pictures_path.$path, $pictures_path)) die ('Fehler');
 
-    $copyright_file = dirname($pictures_path.$path).'/'.$copyright_file;
-    if (file_exists($copyright_file)) $text = join('',file($copyright_file));
-    if(preg_match("/\.(png)$/i", $pictures_path.$path)) {
-        $im = @ImageCreateFromPNG($pictures_path.$path) or die ("Kann keinen neuen GD-Bild-Stream erzeugen");
-        $im = image_write($im, $text, 6, 5, 5);
-        Header('Content-type: image/png');
-        ImagePNG($im);
-    }
-    elseif(preg_match("/\.(jpg)$/i", $pictures_path.$path)) {
-        $im = @ImageCreateFromJPEG($pictures_path.$path) or die ("Kann keinen neuen GD-Bild-Stream erzeugen");
-        $im = image_write($im, $text, 6, 5, 5);
-        Header('Content-type: image/jpeg');
-        ImageJPEG($im);
-    }
+	$copyright_file = dirname($pictures_path.$path).'/'.$copyright_file;
+	if (file_exists($copyright_file)) $text = join('',file($copyright_file));
+	if(preg_match("/\.(png)$/i", $pictures_path.$path)) {
+		$im = @ImageCreateFromPNG($pictures_path.$path) or die ("Kann keinen neuen GD-Bild-Stream erzeugen");
+		$im = image_write($im, $text, 6, 5, 5);
+		Header('Content-type: image/png');
+		ImagePNG($im);
+	}
+	elseif(preg_match("/\.(jpg)$/i", $pictures_path.$path)) {
+		$im = @ImageCreateFromJPEG($pictures_path.$path) or die ("Kann keinen neuen GD-Bild-Stream erzeugen");
+		$im = image_write($im, $text, 6, 5, 5);
+		Header('Content-type: image/jpeg');
+		ImageJPEG($im);
+	}
 } elseif ($action === 'c') {
 	$start = (int)$_GET['n'];
 	if (!legal_image($pictures_path.$path, $pictures_path)) die('Bild nicht gefunden.');
 
 	$no_cache_rand = isset($_GET['r']) ? '?'.rand(0, 86400) : ''; 
-    $arr = Array();
-    $arr['pagetitle'] = $path;
-    //$arr['navigation'] = '<a href="'.$BASE_URI.'/p'.preg_replace('!^(.*?/)[^/]+$!', '$1', $path).'?n='.$start.'">[&Uuml;bersicht]</a><br>';
+	$arr = Array();
+	$arr['pagetitle'] = $path;
+	//$arr['navigation'] = '<a href="'.$BASE_URI.'/p'.preg_replace('!^(.*?/)[^/]+$!', '$1', $path).'?n='.$start.'">[&Uuml;bersicht]</a><br>';
 
-    // Filename for thumbnail to save to
-    $save_name_m = $thumbs_path.'/m'.str_replace('/','_',$pictures_path.$path);
+	// Filename for thumbnail to save to
+	$save_name_m = $thumbs_path.'/m'.str_replace('/','_',$pictures_path.$path);
 
-    // Get image size for shadow
-    $size = @getimagesize($save_name_m);
-    $h = $medium_size;
-    if ($size[0] < $size[1]) {
-        if ($size[1] != 0) $width  = $size[0]*$h/$size[1];
-        $height = $h;
-    } else {
-        $width  = $h;
-        if ($size[0] != 0) $height = $size[1]*$h/$size[0];
-    }
+	// Get image size for shadow
+	$size = @getimagesize($save_name_m);
+	$h = $medium_size;
+	if ($size[0] < $size[1]) {
+			if ($size[1] != 0) $width  = $size[0]*$h/$size[1];
+			$height = $h;
+	} else {
+			$width	= $h;
+			if ($size[0] != 0) $height = $size[1]*$h/$size[0];
+	}
 
-    // previous and next picture
-    $curr_dir = preg_replace('!^(.*/)[^/]+$!', '\1', $pictures_path.$path);
-    $curr_pic = preg_replace('!^.*/([^/]+)$!', '\1', $pictures_path.$path);
-    $dir = get_dir($curr_dir, '', 'f');
-    $key = array_search($curr_pic, $dir);
-    $prev_pic = $dir[$key - 1] != '' ? str_replace($pictures_path, '', $curr_dir.$dir[$key - 1]) : '';
-    $next_pic = $dir[$key + 1] != '' ? str_replace($pictures_path, '', $curr_dir.$dir[$key + 1]) : '';
+	// previous and next picture
+	$curr_dir = preg_replace('!^(.*/)[^/]+$!', '\1', $pictures_path.$path);
+	$curr_pic = preg_replace('!^.*/([^/]+)$!', '\1', $pictures_path.$path);
+	$dir = get_dir($curr_dir, '', 'f');
+	$key = array_search($curr_pic, $dir);
+	$prev_pic = $dir[$key - 1] != '' ? str_replace($pictures_path, '', $curr_dir.$dir[$key - 1]) : '';
+	$next_pic = $dir[$key + 1] != '' ? str_replace($pictures_path, '', $curr_dir.$dir[$key + 1]) : '';
 
-    $arr['content'] = '';
+	$arr['content'] = '';
 
-    // Show picture
-    $arr['content'] .= '<div class="carousel-inner" role="listbox">';
-    $arr['content'] .= '<div class="item active">';
-    //$arr['content'] .= '<div style="height:'.(($height ? $height : $medium_size)+15).'px;text-align:center;width:100%" class="mainImage">';
-    $arr['content'] .= '<a href="'.$BASE_URI.'/i'.$path.'">';
-    $arr['content'] .= '<img src="'.$BASE_URI.'/m'.$path.$no_cache_rand.'" border="0" />';
-    $arr['content'] .= '</a>';
-    $arr['content'] .= '</div></div>';
+	// Show picture
+	$arr['content'] .= '<div class="carousel-inner" role="listbox">';
+	$arr['content'] .= '<div class="item active">';
+	//$arr['content'] .= '<div style="height:'.(($height ? $height : $medium_size)+15).'px;text-align:center;width:100%" class="mainImage">';
+	$arr['content'] .= '<a href="'.$BASE_URI.'/i'.$path.'">';
+	$arr['content'] .= '<img src="'.$BASE_URI.'/m'.$path.$no_cache_rand.'" border="0" />';
+	$arr['content'] .= '</a>';
+	$arr['content'] .= '</div></div>';
 
-    // Previous Picture
-    if ($prev_pic) {
-        $arr['content'] .= '<a class="left carousel-control" href="'.$BASE_URI.'/c'.$prev_pic.'?n='.$start.'#img" role="button" data-slide="prev">';
-        $arr['content'] .= '<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>';
-        $arr['content'] .= '<span class="sr-only">Previous</span>';
-        $arr['content'] .= '</a>';
-    }
+	// Previous Picture
+	if ($prev_pic) {
+		$arr['content'] .= '<a class="left carousel-control" href="'.$BASE_URI.'/c'.$prev_pic.'?n='.$start.'#img" role="button" data-slide="prev">';
+		$arr['content'] .= '<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>';
+		$arr['content'] .= '<span class="sr-only">Previous</span>';
+		$arr['content'] .= '</a>';
+	}
 
-    // Next Picture
-    if ($next_pic) {
-        $arr['content'] .= '<a class="right carousel-control" href="'.$BASE_URI.'/c'.$next_pic.'#img" role="button" data-slide="next">';
-        $arr['content'] .= '<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>';
-        $arr['content'] .= '<span class="sr-only">Next</span>';
-        $arr['content'] .= '</a>';
-        // Preload next picture to browser cache
-        $arr['content'] .= '<img src="'.$BASE_URI.'/m'.$next_pic.'" border="0" width="1" height="1" hspace="20" alt="" style="position:absolute" />';
-    }
-    //$arr['content'] .= '<br clear="all"><br>';
+	// Next Picture
+	if ($next_pic) {
+		$arr['content'] .= '<a class="right carousel-control" href="'.$BASE_URI.'/c'.$next_pic.'#img" role="button" data-slide="next">';
+		$arr['content'] .= '<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>';
+		$arr['content'] .= '<span class="sr-only">Next</span>';
+		$arr['content'] .= '</a>';
+		// Preload next picture to browser cache
+		$arr['content'] .= '<img src="'.$BASE_URI.'/m'.$next_pic.'" border="0" width="1" height="1" hspace="20" alt="" style="position:absolute" />';
+	}
+	//$arr['content'] .= '<br clear="all"><br>';
 
-    // Filename for comments to save to
-    $save_name = $comments_path.'/'.str_replace('/','_',$path).'.txt';
+	// Filename for comments to save to
+	$save_name = $comments_path.'/'.str_replace('/','_',$path).'.txt';
 
-		$arr['comments'] = '';
+	$arr['comments'] = '';
 
-		$arr['comments'] .= '<div class="row">';
-		$arr['comments'] .= '<div class="col-md-10 col-md-offset-2">';
-		if (file_exists($save_name)) {
-			$handle = fopen ($save_name,"r");
-			while ($data = fgetcsv ($handle, 5000, ",")) {
-				$arr['comments'] .= '<blockquote>';
-				$arr['comments'] .= '<p>' . stripslashes(nl2br($data[1])) . '</p>';
-				$arr['comments'] .= '<footer><b>'.stripslashes($data[0]).'</b>';
-				$arr['comments'] .= ' am <cite title="Datum">'.date('d.m.Y', $data[2]).'</cite>';
-				$arr['comments'] .= ' um <cite title="Uhrzeit">'.date('H:i', $data[2]).'</cite></footer>';
-				$arr['comments'] .= '</blockquote>';
-			}
-			fclose ($handle);
+	$arr['comments'] .= '<div class="row">';
+	$arr['comments'] .= '<div class="col-md-10 col-md-offset-2">';
+	if (file_exists($save_name)) {
+		$handle = fopen ($save_name,"r");
+		while ($data = fgetcsv ($handle, 5000, ",")) {
+			$arr['comments'] .= '<blockquote>';
+			$arr['comments'] .= '<p>' . stripslashes(nl2br($data[1])) . '</p>';
+			$arr['comments'] .= '<footer><b>'.stripslashes($data[0]).'</b>';
+			$arr['comments'] .= ' am <cite title="Datum">'.date('d.m.Y', $data[2]).'</cite>';
+			$arr['comments'] .= ' um <cite title="Uhrzeit">'.date('H:i', $data[2]).'</cite></footer>';
+			$arr['comments'] .= '</blockquote>';
 		}
-		$arr['comments'] .= '</div></div>';
+		fclose ($handle);
+	}
+	$arr['comments'] .= '</div></div>';
 
-    // Image functions
-    /*
-    $arr['breadcrumb'] .= '<span style="float:right"><b>';
-    $arr['breadcrumb'] .= '<a href="'.$BASE_URI.'/r'.$path.'">[ ⟳  Drehen im mathematisch negativen Sinn ]</a> ';
-    $arr['breadcrumb'] .= '<a href="'.$BASE_URI.'/d'.$path.'">[ Bildansicht neu erzeugen ]</a> ';
-    $arr['breadcrumb'] .= '</b></span>';
-    $arr['breadcrumb'] .= '<b style="float:left; padding: 0 10px;"><a href="'.$BASE_URI.'/p'.preg_replace('!^(.*?/)[^/]+$!', '$1', $path).'?n='.$start.'">[ Zur &Uuml;bersicht ]</a></b>';
-    */
+	// Image functions
+	/*
+	$arr['breadcrumb'] .= '<span style="float:right"><b>';
+	$arr['breadcrumb'] .= '<a href="'.$BASE_URI.'/r'.$path.'">[ ⟳  Drehen im mathematisch negativen Sinn ]</a> ';
+	$arr['breadcrumb'] .= '<a href="'.$BASE_URI.'/d'.$path.'">[ Bildansicht neu erzeugen ]</a> ';
+	$arr['breadcrumb'] .= '</b></span>';
+	$arr['breadcrumb'] .= '<b style="float:left; padding: 0 10px;"><a href="'.$BASE_URI.'/p'.preg_replace('!^(.*?/)[^/]+$!', '$1', $path).'?n='.$start.'">[ Zur &Uuml;bersicht ]</a></b>';
+	*/
 
-    $arr['actions'] = '';
-    $arr['actions'] .= '<li><a href="'.$BASE_URI.'/r'.$path.'" title="Drehen im mathematisch negativen Sinn"><i class="fa fa-rotate-right"></i></a></li>';
-    $arr['actions'] .= '<li><a href="'.$BASE_URI.'/d'.$path.'" title="Bildansicht neu erzeugen"><i class="fa fa-window-restore"></i></a></li>';
+	$arr['actions'] = '';
+	$arr['actions'] .= '<li><a href="'.$BASE_URI.'/r'.$path.'" title="Drehen im mathematisch negativen Sinn"><i class="fa fa-rotate-right"></i></a></li>';
+	$arr['actions'] .= '<li><a href="'.$BASE_URI.'/d'.$path.'" title="Bildansicht neu erzeugen"><i class="fa fa-window-restore"></i></a></li>';
 
-    // Show comment form
-    $arr['comments'] .= '<form action="'.$BASE_URI.'/s'.$path.'" method="post" class="form-horizontal">';
-    $arr['comments'] .= '  <div class="form-group">';
-    $arr['comments'] .= '    <label for="input-name" class="col-sm-2 control-label">Name</label>';
-    $arr['comments'] .= '    <div class="col-sm-10">';
-    if ($_SERVER["REMOTE_USER"] != '')
-      $arr['comments'] .= '      <p class="form-control-static">'.$_SERVER["REMOTE_USER"].'</p>';
-    else
-      $arr['comments'] .= '      <input type="text" class="form-control" name="name" id="input-name" placeholder="Name">';
-    $arr['comments'] .= '    </div>';
-    $arr['comments'] .= '  </div>';
-    $arr['comments'] .= '  <div class="form-group">';
-    $arr['comments'] .= '    <label for="input-comment" class="col-sm-2 control-label">Kommentar</label>';
-    $arr['comments'] .= '    <div class="col-sm-10">';
-    $arr['comments'] .= '      <textarea class="form-control" name="comment" id="input-comment" placeholder="Kommentar"></textarea>';
-    $arr['comments'] .= '    </div>';
-    $arr['comments'] .= '  </div>';
-    $arr['comments'] .= '  <div class="form-group">';
-    $arr['comments'] .= '    <div class="col-sm-offset-2 col-sm-10">';
-    $arr['comments'] .= '      <input type="submit" value="Kommentar speichern" class="btn btn-default" />';
-    $arr['comments'] .= '    </div>';
-    $arr['comments'] .= '  </div>';
-    $arr['comments'] .= '</form>';
+	// Show comment form
+	$arr['comments'] .= '<form action="'.$BASE_URI.'/s'.$path.'" method="post" class="form-horizontal">';
+	$arr['comments'] .= '  <div class="form-group">';
+	$arr['comments'] .= '		 <label for="input-name" class="col-sm-2 control-label">Name</label>';
+	$arr['comments'] .= '		 <div class="col-sm-10">';
+	if ($_SERVER["REMOTE_USER"] != '')
+		$arr['comments'] .= '			 <p class="form-control-static">'.$_SERVER["REMOTE_USER"].'</p>';
+	else
+		$arr['comments'] .= '			 <input type="text" class="form-control" name="name" id="input-name" placeholder="Name">';
+	$arr['comments'] .= '		 </div>';
+	$arr['comments'] .= '  </div>';
+	$arr['comments'] .= '  <div class="form-group">';
+	$arr['comments'] .= '		 <label for="input-comment" class="col-sm-2 control-label">Kommentar</label>';
+	$arr['comments'] .= '		 <div class="col-sm-10">';
+	$arr['comments'] .= '			 <textarea class="form-control" name="comment" id="input-comment" placeholder="Kommentar"></textarea>';
+	$arr['comments'] .= '		 </div>';
+	$arr['comments'] .= '  </div>';
+	$arr['comments'] .= '  <div class="form-group">';
+	$arr['comments'] .= '		 <div class="col-sm-offset-2 col-sm-10">';
+	$arr['comments'] .= '			 <input type="submit" value="Kommentar speichern" class="btn btn-default" />';
+	$arr['comments'] .= '		 </div>';
+	$arr['comments'] .= '  </div>';
+	$arr['comments'] .= '</form>';
 
-    $arr['breadcrumb'] .= show_breadcrumb($path);
-		$arr['base_uri'] = make_basedir();
+	$arr['breadcrumb'] .= show_breadcrumb($path);
+	$arr['base_uri'] = make_basedir();
 
-    echo make_page($lightbox_file, $arr);
+	echo make_page($lightbox_file, $arr);
 } elseif ($action === 's') {
 
 	// Filename for comments to save to
-    $save_name = $comments_path.'/'.str_replace('/','_',$path).'.txt';
+	$save_name = $comments_path.'/'.str_replace('/','_',$path).'.txt';
 
 	$name = $_SERVER['REMOTE_USER'] != '' ? $_SERVER['REMOTE_USER'] : htmlentities($_POST['name']);
 	$comment = htmlentities($_POST['comment']);
@@ -347,12 +347,12 @@ if ($action === 't') {
 	$save_name_m = $thumbs_path.'/m'.str_replace('/','_',$pictures_path.$path);
 	$save_name_t = $thumbs_path.'/'.str_replace('/','_',$pictures_path.$path);
 
-    ImageRotate_PV ( $save_name_m, 90 );
-    ImageRotate_PV ( $save_name_t, 90 );
-#	quickRotate ( $save_name_m, 90 );
-#	quickRotate ( $save_name_t, 90 );
+	ImageRotate_PV ( $save_name_m, 90 );
+	ImageRotate_PV ( $save_name_t, 90 );
+	//quickRotate ( $save_name_m, 90 );
+	//quickRotate ( $save_name_t, 90 );
 
-#	exit;
+	//exit;
 	Header('Location: '.$BASE_URI.'/c'.$path.'?r');
 } elseif ($action === 'd') {
 
@@ -365,14 +365,14 @@ if ($action === 't') {
 	unlink ( $save_name_m );
 	unlink ( $save_name_t );
 
-#	exit;
-  Header('Location: '.$BASE_URI.'/c'.$path.'?r');
+	//exit;
+	Header('Location: '.$BASE_URI.'/c'.$path.'?r');
 } elseif ($action === 'j') {
-  header("Content-Type: application/json");
-  echo json_encode([
-      "files" => get_dir($pictures_path, $path, 'f'),
-      "dirs" => get_dir($pictures_path, $path, 'f')
-    ]);
+	header("Content-Type: application/json");
+	echo json_encode([
+		"files" => get_dir($pictures_path, $path, 'f'),
+		"dirs" => get_dir($pictures_path, $path, 'f')
+	]);
 
 } else {
 	$arr = Array();

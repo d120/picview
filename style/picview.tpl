@@ -16,21 +16,21 @@
 	</head>
 	<body class="tud-theme-defs tud-theme-7b">
 		<div class="container" id="header">
-		    <a href="https://www.fachschaft.informatik.tu-darmstadt.de">
-					<img src="%base_uri%/style/d120/img/d120_logo.png" id="mainLogo" alt="D120: Fachschaft Informatik" class="tud-theme-filled pull-left">
-				</a>
-		    <a href="https://www.tu-darmstadt.de" id="responsivelogo"><img src="%base_uri%/style/d120/img/tu_da_logo.png" alt="Technische Universität Darmstadt" class="pull-right"></a>
+			<a href="https://www.fachschaft.informatik.tu-darmstadt.de">
+				<img src="%base_uri%/style/d120/img/d120_logo.png" id="mainLogo" alt="D120: Fachschaft Informatik" class="tud-theme-filled pull-left">
+			</a>
+			<a href="https://www.tu-darmstadt.de" id="responsivelogo"><img src="%base_uri%/style/d120/img/tu_da_logo.png" alt="Technische Universität Darmstadt" class="pull-right"></a>
 		</div>
 
 		<nav id="service-navbar" class="navbar navbar-default tud-theme-filled">
-		    <div class="container">
-		        <ul class="header-navbar pull-right nav navbar-nav">
-		            <li class="active"><a href="https://www.fachschaft.informatik.tu-darmstadt.de"><i class="fa fa-home fa-lg"></i> <span class="hidden-xs">Webseite</span></a></li>
-		            <li><a href="https://daswesentliche.fachschaft.informatik.tu-darmstadt.de"><i class="fa fa-newspaper-o fa-lg"></i> <span class="hidden-xs">dasWESENtliche</span></a></li>
-		            <li><a href="https://www.fachschaft.informatik.tu-darmstadt.de/forum"><i class="fa fa-comments-o fa-lg"></i> <span class="hidden-xs">Forum</span></a></li>
-		            <li><a href="https://www.informatik.tu-darmstadt.de"><i class="fa fa-university fa-lg"></i> <span class="hidden-xs">Fachbereich</span></a></li>
-		        </ul>
-		    </div>
+			<div class="container">
+				<ul class="header-navbar pull-right nav navbar-nav">
+					<li class="active"><a href="https://www.fachschaft.informatik.tu-darmstadt.de"><i class="fa fa-home fa-lg"></i> <span class="hidden-xs">Webseite</span></a></li>
+					<li><a href="https://daswesentliche.fachschaft.informatik.tu-darmstadt.de"><i class="fa fa-newspaper-o fa-lg"></i> <span class="hidden-xs">dasWESENtliche</span></a></li>
+					<li><a href="https://www.fachschaft.informatik.tu-darmstadt.de/forum"><i class="fa fa-comments-o fa-lg"></i> <span class="hidden-xs">Forum</span></a></li>
+					<li><a href="https://www.informatik.tu-darmstadt.de"><i class="fa fa-university fa-lg"></i> <span class="hidden-xs">Fachbereich</span></a></li>
+				</ul>
+			</div>
 		</nav>
 
 		<div class="container">
