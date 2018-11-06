@@ -31,14 +31,14 @@ simply create a variable with that name in the configuration file.
 
 ### Comments path (`$comments_path`)
 
-* *Type*: `String`
+* *Type*: `string`
 * *Required*: `true`
 * *Options*: Any existing and writable path on the system
 * *Description*: The path where comment data is stored.
 
 ### Copyright filename (`$copyright_file`)
 
-* *Type*: `String`
+* *Type*: `string`
 * *Required*: `true`
 * *Example*: `copyright.txt`
 * *Description*: Naming convention for a file from which the text is rendered on
@@ -46,39 +46,57 @@ simply create a variable with that name in the configuration file.
 
 ### Overlay font file (`$font_file`)
 
-* *Type*: `String`
+* *Type*: `string`
 * *Required*: `true`
 * *Example*: `/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf`
 * *Description*: A TTF-File that can be used to render unicode code points on
   the image. Used whenever text is written into the images.
 
+### Medium image size (`$medium_size`)
+
+* *Type*: `int`
+* *Required*: `true`
+* *Description*: The intended length of the shorter edge of the preview images.
+
 ### LDAP Host (`$ldapHost`)
 
-* *Type*: `String`
+* *Type*: `string`
 * *Required*: Only if there is a gallery with the `ldap` authentication method.
 * *Description*: Any valid URL of an LDAP server host.
   See [ldap_connect](https://secure.php.net/manual/en/function.ldap-connect.php).
 
 ### Lightbox Template File (`$lightbox_file`)
 
-* *Type*: `String`
+* *Type*: `string`
 * *Required*: `true`
 * *Options*: Any existing file absolute or relative to the `index.php` script.
 * *Description*: The template for the picture comment/lightbox action.
 
 ### Template File (`$template_file`)
 
-* *Type*: `String`
+* *Type*: `string`
 * *Required*: `true`
 * *Options*: Any existing file absolute or relative to the `index.php` script.
 * *Description*: The template for the directory view action.
 
 ### Thumbnail Path (`$thumbs_path`)
 
-* *Type*: `String`
+* *Type*: `string`
 * *Required*: `true`
 * *Options*: Any existing and writable path on the system
 * *Description*: The path where preview images are stored / cached.
+
+### Thumbnails per page (`$thumbs_per_page`)
+
+* *Type*: `int`
+* *Required*: `true`
+* *Description*: The amount of thumbnails to show on a single page for the current folder
+
+### Thumbnail size (`$thumb_size`)
+
+* *Type*: `int`
+* *Required*: `true`
+* *Description*: The intended length of the shorter edge of the thumbnails.
 
 ## Galleries
 
@@ -93,14 +111,14 @@ different configuration options that are available.
 
 ### Title (`title`)
 
-* *Type*: `String`
+* *Type*: `string`
 * *Required*: `false`
 * *Default*: The gallery id
 * *Description*: Sets a title for this gallery. Used in breadcrumbs.
 
 ### Authentication Method (`auth_required`)
 
-* *Type*: `String`
+* *Type*: `string`
 * *Required*: `true`
 * *Options*: `'ldap'`, `'password'` or `''`
 * *Description*: The method used to restrict access to certain people.
@@ -110,13 +128,13 @@ different configuration options that are available.
 
 ### Passwords (`password`)
 
-* *Type*: `Array(String => String)`
+* *Type*: `Array(string => string)`
 * *Required*: Only if using authentication method `password`
 * *Description*: Array where the keys are valid users and the values are valid passwords
 
 ### Pictures Path (`pictures_path`)
 
-* *Type*: `String`
+* *Type*: `string`
 * *Required*: `true`
 * *Description*: The (absolute) path to the (read-only) images folder of this gallery
 
@@ -134,12 +152,70 @@ any given path within the gallery. The available options are:
 * `d`: Delete and thus regenerate the preview images
 * `p`: Show a gallery of the images within the directory
 * `j`: Deliver a JSON representation of the current resource
+* `h`: Deliver a HAL+JSON representation of the current resource
 
 The URLs for these actions always have the form `/picview/index.php/{gallery}/{action}/{resource}`
 
 ## Templating
 
 Template files are plain HTML files which may contain tags that will be replaced
-by dynamic content. Currently, the following tags are supported for the main template:
+by dynamic content. Tags correspond to entries in the context array passed to
+`make_page`.
 
-`%pagetitle%`, `%navigation%`, `%content%`, `%breadcrumb%`
+### Page Template
+
+The general page template is used for the `p` action to display the pictures
+and subfolders of a resource path. The available tags are:
+
+* `%base_uri%`: Prefix for absolute path to the root folder (can be blank for root)
+* `%breadcrumb%`: A sequence of `<li><a href="...` tags, listing the directories from the root of the gallery to the current resource.
+* `%content%`: The galleries for the current folder and a preview of the galleries of the first-level subfolders.
+* `%navigation%`: A sequence of `<li><a href="...` tags, listing an `[up]` and all subfolders of the current resource.
+* `%pagetitle%`: `picView: {resource}`
+
+### Lightbox Template
+
+The lightbox template is used for the `c` action to display the preview and comments
+for any given image, as well as allowing to navigate to the adjacent images. The
+available tags are:
+
+* `%actions%`: A sequence of `<li><a href="...` tags, for actions that can be applied to the current resource.
+* `%base_uri%`: Prefix for absolute path to the root folder (can be blank for root)
+* `%breadcrumb%`: A sequence of `<li><a href="...` tags, listing the directories from the root of the gallery to the current resource.
+* `%comments%`: A sequence of blockquotes and a form for displaying and writing comments.
+* `%content%`: The carousel of the current image and the links to the adjancent images.
+* `%navigation%`: A sequence of `<li><a href="...` tags, listing an `[up]` and all subfolders of the current resource.
+* `%pagetitle%`: `picView: {resource}`
+
+## Example configuration
+
+The following is an example configuration of picView:
+
+```php
+<?php
+$template_file = 'style/picview.tpl';
+$lightbox_file = 'style/lightbox.tpl';
+$copyright_file = 'copyright.txt';
+$font_file = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf';
+$thumbs_path = '/var/www/html/thumbs';
+$comments_path = '/var/www/html/comments';
+$thumbs_per_page = 30;
+$thumb_size = 120;
+$medium_size = 600;
+
+$galleries = [
+  "picview" => [
+    "pictures_path" => "/var/www/html/pictures",
+    "auth_required" => false,
+    "title" => "pictures"
+  ],
+  "wp-content" => [
+    "pictures_path" => "/var/www/html/wp-content",
+    "auth_required" => "password",
+    "password" => [
+      "user" => "somepassword"
+    ]
+  ]
+];
+?>
+```
