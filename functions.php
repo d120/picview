@@ -162,7 +162,7 @@ function show_pictures($path, $currpath) {
 		else
 			$r .= '[<a href="'.$BASE_URI.'/p/'.$currpath.'?n='.($i).'">'. ($i + 1) .'-'. ($show_to) .'</a>] ';
 	}
-	$r .= '</p><div class="img-gallery">';
+	$r .= '</p>';
 
 	$count = -1;
   $r .= "<div class='img-gallery' style='width:100%'>";
@@ -191,7 +191,7 @@ function show_pictures($path, $currpath) {
 	}
   $r .= "</div>";
 
-	$r .= '</div><p>';
+	$r .= '<p>';
 	$max = count($dir);
 	for($i = 0; $i < $max; $i += $thumbs_per_page) {
 		$show_to = $i + $thumbs_per_page;
