@@ -12,6 +12,7 @@
 			#main {
 				min-height: calc(100vh - 326px);
 			}
+      #sidebar a { padding-top: 2px; padding-bottom: 2px; }
 		</style>
 	</head>
 	<body class="tud-theme-defs tud-theme-7b">
@@ -25,7 +26,7 @@
 		<nav id="service-navbar" class="navbar navbar-default tud-theme-filled">
 			<div class="container">
 				<ul class="header-navbar pull-right nav navbar-nav">
-					<li class="active"><a href="https://www.fachschaft.informatik.tu-darmstadt.de"><i class="fa fa-home fa-lg"></i> <span class="hidden-xs">Webseite</span></a></li>
+					<li><a href="https://www.fachschaft.informatik.tu-darmstadt.de"><i class="fa fa-home fa-lg"></i> <span class="hidden-xs">Webseite</span></a></li>
 					<li><a href="https://daswesentliche.fachschaft.informatik.tu-darmstadt.de"><i class="fa fa-newspaper-o fa-lg"></i> <span class="hidden-xs">dasWESENtliche</span></a></li>
 					<li><a href="https://www.fachschaft.informatik.tu-darmstadt.de/forum"><i class="fa fa-comments-o fa-lg"></i> <span class="hidden-xs">Forum</span></a></li>
 					<li><a href="https://www.informatik.tu-darmstadt.de"><i class="fa fa-university fa-lg"></i> <span class="hidden-xs">Fachbereich</span></a></li>
