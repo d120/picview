@@ -3,12 +3,11 @@
 	<head>
 		<title>picView: %pagetitle% | D120.de</title>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-
-		<link rel="stylesheet" type="text/css" href="/picview/style/d120/node_modules/bootstrap/dist/css/bootstrap.min.css" />
-		<link rel="stylesheet" type="text/css" href="/picview/style/d120/node_modules/font-awesome/css/font-awesome.min.css" />
-		<link rel="stylesheet" type="text/css" href="/picview/style/d120/css/custom.css" />
-		<link rel="stylesheet" type="text/css" href="/picview/style/d120/css/tudesign.css" />
-		<link rel="stylesheet" type="text/css" href="/picview/css/justifiedGallery.min.css" />
+		<link rel="stylesheet" type="text/css" href="%base_uri%/style/d120/node_modules/bootstrap/dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="%base_uri%/style/d120/node_modules/font-awesome/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="%base_uri%/style/d120/css/custom.css" />
+		<link rel="stylesheet" type="text/css" href="%base_uri%/style/d120/css/tudesign.css" />
+		<link rel="stylesheet" type="text/css" href="%base_uri%/css/justifiedGallery.min.css" />
 		<style>
 			#main {
 				min-height: calc(100vh - 326px);
@@ -18,9 +17,9 @@
 	<body class="tud-theme-defs tud-theme-4c">
 		<div class="container" id="header">
 		    <a href="https://www.fachschaft.informatik.tu-darmstadt.de">
-					<img src="/picview/style/d120/img/d120_logo.png" id="mainLogo" alt="D120: Fachschaft Informatik" class="tud-theme-filled pull-left">
+					<img src="%base_uri%/style/d120/img/d120_logo.png" id="mainLogo" alt="D120: Fachschaft Informatik" class="tud-theme-filled pull-left">
 				</a>
-		    <a href="https://www.tu-darmstadt.de" id="responsivelogo"><img src="/picview/style/d120/img/tu_da_logo.png" alt="Technische Universität Darmstadt" class="pull-right"></a>
+		    <a href="https://www.tu-darmstadt.de" id="responsivelogo"><img src="%base_uri%/style/d120/img/tu_da_logo.png" alt="Technische Universität Darmstadt" class="pull-right"></a>
 		</div>
 
 		<nav id="service-navbar" class="navbar navbar-default tud-theme-filled">
@@ -84,9 +83,9 @@
 				</div>
 			</div>
 		</footer>
-		<script src="/picview/css/jquery-2.1.4.min.js"></script>
-		<script src="/picview/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-		<script src="/picview/css/jquery.justifiedGallery.min.js"></script>
+		<script src="%base_uri%/css/jquery-2.1.4.min.js"></script>
+		<script src="%base_uri%/style/d120/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="%base_uri%/css/jquery.justifiedGallery.min.js"></script>
 		<script>
 			$('.img-gallery').justifiedGallery();
 		</script>

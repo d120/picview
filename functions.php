@@ -264,6 +264,13 @@ function make_page($tpl_filename, $vars) {
 
 
 
+function make_basedir() {
+  global $BASE_URI;
+  $base = dirname(dirname($BASE_URI));
+  if ($base == '/') return "/";
+  return $base;
+}
+
 
 // $imgSrc - GD image handle of source image 
 // $angle - angle of rotation. Needs to be positive integer 
