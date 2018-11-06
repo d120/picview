@@ -310,7 +310,7 @@ if ($action === 't') {
 
     $arr['breadcrumb'] .= show_breadcrumb($path);
 
-    echo make_page($arr);
+    echo make_page($lightbox_file, $arr);
 } elseif ($action === 's') {
 
 	// Filename for comments to save to
@@ -384,7 +384,7 @@ if ($action === 't') {
 	$arr['navigation'] = show_directory($pictures_path, $path);
 	$arr['content'] = show_pictures($pictures_path, $path);
 	$arr['breadcrumb'] = show_breadcrumb($path);
-	echo make_page($arr);
+	echo make_page($template_file, $arr);
 }
 
 

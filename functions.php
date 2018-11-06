@@ -254,9 +254,8 @@ function image_write($im, $text, $size, $x, $y) {
 	return $im;
 } // image_write()
 
-function make_page($vars) {
-	global $template_file;
-	$template = join('', file($template_file));
+function make_page($tpl_filename, $vars) {
+	$template = file_get_contents($tpl_filename);
 
 	foreach($vars as $x => $y)
 		$template = str_replace('%' . $x . '%', $y, $template);
