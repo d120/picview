@@ -13,7 +13,7 @@
 			#main {
 				min-height: calc(100vh - 326px);
 			}
-      #sidebar a { padding-top: 2px; padding-bottom: 2px; }
+			#sidebar a { padding-top: 2px; padding-bottom: 2px; }
 		</style>
 	</head>
 	<body class="tud-theme-defs tud-theme-7b">
